@@ -8,3 +8,6 @@ Senior reviewer that analyzes code changes for clarity, naming, duplication, err
 
 ## figma design extractor
 UX/UI specialist that extracts visual specifications and layout details from Figma designs to provide implementation guidance and code examples.
+
+## ui designer
+Expert product designer that produces complete, implementation-ready design specifications — covering layout, visual hierarchy, typography, color, motion, interaction states, and aesthetic direction.
