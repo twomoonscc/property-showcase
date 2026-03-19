@@ -1,0 +1,3 @@
+[submodule "sdd-template"]
+	path = sdd-template
+	url = https://github.com/twomoonscc/sdd-template.git
