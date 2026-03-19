@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURA — A New Standard in Luxury Living</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* ─── DESIGN TOKENS ─────────────────────────────────────────── */
+:root {
+  --bg-base:       #0A0A0A;
+  --bg-elevated:   #111111;
+  --bg-surface:    #1A1A1A;
+  --bg-glass:      rgba(17,17,17,0.80);
+  --border-subtle: #1F1F1F;
+  --border-default:#2A2A2A;
+  --border-strong: #3A3A3A;
+  --text-primary:  #FAFAFA;
+  --text-secondary:#A0A0A0;
+  --text-tertiary: #666666;
+  --text-disabled: #444444;
+  --brand:         #C9A96E;
+  --brand-hover:   #D4B87D;
+  --brand-pressed: #B8985D;
+  --brand-muted:   rgba(201,169,110,0.12);
+  --platinum:      #E8E4DF;
+  --platinum-muted:rgba(232,228,223,0.06);
+  --status-available:#4ADE80;
+  --status-reserved: #FBBF24;
+  --status-sold:     #EF4444;
+  --whatsapp:      #25D366;
+  --overlay:       rgba(0,0,0,0.60);
+  --shadow-float:  0 8px 32px rgba(0,0,0,0.5),0 16px 48px rgba(0,0,0,0.3);
+  --shadow-modal:  0 16px 64px rgba(0,0,0,0.6),0 32px 96px rgba(0,0,0,0.4);
+  --radius:        8px;
+  --radius-card:   12px;
+  --radius-pill:   48px;
+  --font-display:  'Cormorant Garamond', Georgia, serif;
+  --font-body:     'Inter', system-ui, sans-serif;
+  --font-mono:     'JetBrains Mono', monospace;
+  --page-pad:      64px;
+  --section-pad:   96px;
+  --max-w:         1440px;
+}
+
+/* ─── RESET ─────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--bg-base);color:var(--text-primary);font-family:var(--font-body);font-size:16px;line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{border:none;background:none;cursor:pointer;font-family:inherit}
+input,textarea,select{font-family:inherit}
+
+/* ─── UTILITY ────────────────────────────────────────────────── */
+.container{max-width:var(--max-w);margin:0 auto;padding:0 var(--page-pad)}
+.eyebrow{font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--brand)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-4{transition-delay:0.4s}
+
+/* ─── SCROLL PROGRESS BAR ────────────────────────────────────── */
+#progress-bar{
+  position:fixed;top:0;left:0;height:3px;width:0%;z-index:9999;
+  background:linear-gradient(90deg,var(--brand),var(--brand-hover));
+  box-shadow:0 0 8px rgba(201,169,110,0.5);
+  transition:width 0.05s linear;
+  pointer-events:none;
+}
+
+/* ─── NAVIGATION ─────────────────────────────────────────────── */
+#nav{
+  position:fixed;top:3px;left:0;right:0;height:72px;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 var(--page-pad);
+  transition:background 0.3s,backdrop-filter 0.3s,border-color 0.3s;
+  border-bottom:1px solid transparent;
+}
+#nav.scrolled{
+  background:var(--bg-glass);
+  backdrop-filter:blur(24px) saturate(1.2);
+  -webkit-backdrop-filter:blur(24px) saturate(1.2);
+  border-color:var(--border-subtle);
+}
+.nav-logo{
+  font-family:var(--font-display);font-size:22px;font-weight:500;
+  letter-spacing:0.15em;color:var(--text-primary);
+}
+.nav-links{display:flex;gap:36px;align-items:center}
+.nav-links a{
+  font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--text-secondary);position:relative;padding-bottom:4px;
+  transition:color 0.2s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;width:0;height:2px;
+  background:var(--brand);transition:width 0.25s ease;
+}
+.nav-links a:hover{color:var(--brand)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a.active{color:var(--brand)}
+.nav-cta{
+  background:var(--brand);color:#0A0A0A;
+  font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  padding:12px 28px;border-radius:var(--radius-pill);
+  transition:background 0.2s,transform 0.15s;
+}
+.nav-cta:hover{background:var(--brand-hover);transform:translateY(-1px)}
+.nav-cta:active{background:var(--brand-pressed);transform:none}
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+#hero{
+  position:relative;height:100vh;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to top,#0A0A0A 0%,rgba(10,10,10,0.65) 35%,rgba(10,10,10,0.2) 65%,rgba(10,10,10,0.45) 100%),
+    linear-gradient(135deg,#1a1610 0%,#0d1015 40%,#0a0d12 100%);
+}
+/* Geometric abstract building silhouette via CSS */
+.hero-bg::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 80% at 65% 40%,rgba(201,169,110,0.04) 0%,transparent 70%),
+    radial-gradient(ellipse 30% 60% at 70% 60%,rgba(232,228,223,0.02) 0%,transparent 60%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);
+  background-size:80px 80px;
+  mask-image:linear-gradient(to bottom,transparent,rgba(0,0,0,0.3) 30%,rgba(0,0,0,0.3) 70%,transparent);
+}
+.hero-content{
+  position:relative;z-index:2;text-align:center;padding:0 24px;max-width:960px;
+  margin-top:40px;
+}
+.hero-eyebrow{
+  font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--brand);margin-bottom:28px;
+  animation:fadeUp 1s ease 0.2s both;
+}
+.hero-title{
+  font-family:var(--font-display);font-size:clamp(48px,8vw,96px);
+  font-weight:300;line-height:1.0;letter-spacing:-0.02em;
+  color:var(--text-primary);margin-bottom:28px;
+  animation:fadeUp 1s ease 0.4s both;
+}
+.hero-title em{font-style:italic;color:var(--platinum)}
+.hero-tagline{
+  font-size:18px;font-weight:400;line-height:1.7;color:var(--text-secondary);
+  max-width:560px;margin:0 auto 48px;
+  animation:fadeUp 1s ease 0.6s both;
+}
+.hero-ctas{
+  display:flex;gap:16px;justify-content:center;align-items:center;
+  animation:fadeUp 1s ease 0.8s both;
+}
+.btn-primary{
+  background:var(--brand);color:#0A0A0A;
+  font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  padding:16px 36px;border-radius:var(--radius-pill);
+  transition:background 0.2s,transform 0.15s,box-shadow 0.2s;
+}
+.btn-primary:hover{
+  background:var(--brand-hover);transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(201,169,110,0.3);
+}
+.btn-outline{
+  border:1px solid var(--brand);color:var(--brand);
+  font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  padding:15px 36px;border-radius:var(--radius-pill);
+  transition:background 0.2s,color 0.2s,transform 0.15s;
+}
+.btn-outline:hover{background:var(--brand-muted);transform:translateY(-2px)}
+
+.scroll-indicator{
+  position:absolute;bottom:48px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:fadeUp 1s ease 1.2s both;
+}
+.scroll-indicator span{
+  font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--text-tertiary);
+}
+.scroll-line{
+  width:1px;height:48px;background:var(--text-tertiary);position:relative;overflow:hidden;
+}
+.scroll-line::after{
+  content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;
+  background:var(--brand);animation:scrollDrop 1.8s ease-in-out infinite;
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes scrollDrop{0%{top:-100%}60%{top:100%}100%{top:100%}}
+
+/* ─── TICKER TAPE ────────────────────────────────────────────── */
+#ticker{
+  height:56px;background:var(--bg-elevated);overflow:hidden;
+  border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);
+  display:flex;align-items:center;
+}
+.ticker-track{
+  display:flex;align-items:center;white-space:nowrap;
+  animation:tickerScroll 35s linear infinite;
+}
+#ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-item{
+  display:inline-flex;align-items:center;gap:20px;padding:0 24px;
+  font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--text-secondary);transition:color 0.2s;
+}
+.ticker-item:hover{color:var(--brand)}
+.ticker-dot{
+  width:6px;height:6px;background:var(--brand);
+  transform:rotate(45deg);flex-shrink:0;
+}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ─── SECTION SHARED ─────────────────────────────────────────── */
+.section-header{margin-bottom:64px}
+.section-title{
+  font-family:var(--font-display);font-size:clamp(32px,4vw,56px);
+  font-weight:400;line-height:1.1;color:var(--text-primary);margin-top:16px;
+}
+
+/* ─── NARRATIVE ──────────────────────────────────────────────── */
+#narrative{padding:var(--section-pad) 0;background:var(--bg-base)}
+#narrative .container{max-width:900px}
+.narrative-body{
+  font-size:18px;line-height:1.8;color:var(--text-secondary);margin-bottom:32px;
+}
+.pull-quote{
+  font-family:var(--font-display);font-size:clamp(22px,3vw,34px);font-style:italic;
+  font-weight:300;color:var(--platinum);line-height:1.4;
+  border-left:2px solid var(--brand);padding-left:36px;margin:48px 0;
+}
+.narrative-stat-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:56px 0;
+  border:1px solid var(--border-subtle);border-radius:var(--radius-card);overflow:hidden;
+}
+.narrative-stat{
+  background:var(--bg-elevated);padding:36px 32px;text-align:center;
+}
+.stat-number{
+  font-family:var(--font-mono);font-size:40px;font-weight:400;color:var(--brand);
+  display:block;margin-bottom:8px;
+}
+.stat-label{
+  font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--text-secondary);
+}
+
+/* ─── VIDEO SECTION ──────────────────────────────────────────── */
+#video-section{
+  position:relative;height:100vh;background:#000;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.video-bg{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(135deg,#0d1520 0%,#0a0f1a 50%,#050a10 100%);
+}
+.video-bg::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(30,50,80,0.3) 0%,transparent 70%);
+}
+/* Simulated video lines */
+.video-bg::after{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,0.005) 3px,rgba(255,255,255,0.005) 4px);
+}
+.video-overlay-gradient{
+  position:absolute;bottom:0;left:0;right:0;height:40%;
+  background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);
+  z-index:2;
+}
+.play-btn{
+  position:relative;z-index:3;
+  width:88px;height:88px;border-radius:50%;
+  background:var(--bg-glass);border:1px solid var(--border-strong);
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s;cursor:pointer;
+}
+.play-btn:hover{
+  transform:scale(1.08);border-color:var(--brand);
+  box-shadow:0 0 40px rgba(201,169,110,0.25);
+}
+.play-btn svg{margin-left:6px}
+.video-meta{
+  position:absolute;bottom:40px;left:0;right:0;z-index:4;
+  padding:0 var(--page-pad);
+  display:flex;justify-content:space-between;align-items:flex-end;
+}
+.video-title-block .video-label{
+  font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--brand);
+}
+.video-title-block h3{
+  font-family:var(--font-display);font-size:28px;font-weight:400;color:var(--text-primary);margin-top:6px;
+}
+.video-controls{display:flex;gap:12px;align-items:center}
+.video-ctrl-btn{
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(255,255,255,0.08);border:1px solid var(--border-strong);
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s;color:var(--text-primary);
+}
+.video-ctrl-btn:hover{background:rgba(255,255,255,0.15)}
+
+/* ─── GALLERY ────────────────────────────────────────────────── */
+#gallery{padding:var(--section-pad) 0;background:var(--bg-base)}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-template-rows:auto;
+  gap:8px;margin-top:64px;
+}
+.gallery-item{
+  overflow:hidden;border-radius:4px;position:relative;cursor:pointer;
+  background:var(--bg-elevated);
+}
+.gallery-item::after{
+  content:'';position:absolute;inset:0;
+  background:var(--overlay);opacity:0;transition:opacity 0.3s;
+}
+.gallery-item:hover::after{opacity:1}
+.gallery-item-inner{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:14px;color:var(--text-tertiary);
+  letter-spacing:0.05em;
+}
+/* Place gallery items with specific grid areas */
+.gallery-item:nth-child(1){grid-column:1/8;grid-row:1/2;height:420px}
+.gallery-item:nth-child(2){grid-column:8/13;grid-row:1/2;height:420px}
+.gallery-item:nth-child(3){grid-column:1/5;grid-row:2/3;height:280px}
+.gallery-item:nth-child(4){grid-column:5/9;grid-row:2/3;height:280px}
+.gallery-item:nth-child(5){grid-column:9/13;grid-row:2/3;height:280px}
+
+/* Color fills to simulate images */
+.gallery-item:nth-child(1) .gallery-item-inner{background:linear-gradient(135deg,#1a2030 0%,#0d1520 100%)}
+.gallery-item:nth-child(2) .gallery-item-inner{background:linear-gradient(135deg,#151015 0%,#201820 100%)}
+.gallery-item:nth-child(3) .gallery-item-inner{background:linear-gradient(135deg,#101520 0%,#0a1018 100%)}
+.gallery-item:nth-child(4) .gallery-item-inner{background:linear-gradient(135deg,#1a1510 0%,#120f08 100%)}
+.gallery-item:nth-child(5) .gallery-item-inner{background:linear-gradient(135deg,#101820 0%,#0c1218 100%)}
+
+.gallery-zoom-icon{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  z-index:3;opacity:0;transition:opacity 0.3s;
+  color:var(--text-primary);
+}
+.gallery-item:hover .gallery-zoom-icon{opacity:1}
+
+/* ─── 3D / INTERACTIVE ───────────────────────────────────────── */
+#render-section{
+  height:100vh;background:var(--bg-base);position:relative;overflow:hidden;
+  display:flex;align-items:stretch;
+}
+.render-canvas{
+  flex:1;position:relative;
+  background:
+    radial-gradient(ellipse 70% 80% at 50% 60%,rgba(20,30,50,0.8) 0%,#050810 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+/* Geometric building wireframe */
+.wireframe-building{
+  position:relative;width:320px;height:480px;
+}
+.wireframe-face{
+  position:absolute;border:1px solid rgba(201,169,110,0.3);
+}
+.wf-front{width:200px;height:400px;bottom:0;left:60px}
+.wf-side{
+  width:80px;height:360px;bottom:0;left:240px;
+  border-left:none;
+  transform:skewY(-5deg);transform-origin:bottom left;
+}
+.wf-top{
+  width:200px;height:60px;bottom:400px;left:60px;
+  border-bottom:none;
+  transform:skewX(-20deg);transform-origin:bottom left;
+}
+.wf-line{
+  position:absolute;background:rgba(201,169,110,0.15);
+}
+.wf-h1{width:200px;height:1px;left:60px;bottom:200px}
+.wf-h2{width:200px;height:1px;left:60px;bottom:300px}
+.wf-v1{width:1px;height:400px;left:127px;bottom:0}
+.wf-v2{width:1px;height:400px;left:194px;bottom:0}
+
+.render-hotspot{
+  position:absolute;width:28px;height:28px;
+  border-radius:50%;border:2px solid var(--brand);
+  background:var(--brand-muted);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.render-hotspot::before{
+  content:'';position:absolute;width:100%;height:100%;border-radius:50%;
+  border:2px solid var(--brand);animation:pulse-ring 2s ease-out infinite;opacity:0.5;
+}
+.render-hotspot:hover{transform:scale(1.2);box-shadow:0 0 16px rgba(201,169,110,0.4)}
+.hs-1{top:30%;left:38%}
+.hs-2{top:55%;left:58%}
+.hs-3{top:45%;left:28%}
+
+.hotspot-tooltip{
+  position:absolute;background:var(--bg-glass);border:1px solid var(--border-default);
+  border-radius:var(--radius);padding:12px 16px;width:180px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  font-size:13px;color:var(--text-primary);
+  opacity:0;transform:translateY(8px);transition:opacity 0.2s,transform 0.2s;
+  pointer-events:none;top:-60px;left:50%;margin-left:-90px;white-space:nowrap;
+}
+.render-hotspot:hover .hotspot-tooltip{opacity:1;transform:translateY(0)}
+.hotspot-label{font-weight:600;display:block;margin-bottom:2px}
+.hotspot-sub{font-size:12px;color:var(--text-secondary)}
+
+@keyframes pulse-ring{
+  0%{transform:scale(1);opacity:0.6}
+  100%{transform:scale(2.2);opacity:0}
+}
+
+.render-controls{
+  width:280px;background:var(--bg-elevated);border-left:1px solid var(--border-subtle);
+  padding:40px 32px;display:flex;flex-direction:column;gap:36px;overflow-y:auto;
+}
+.render-controls h3{
+  font-family:var(--font-display);font-size:22px;font-weight:400;color:var(--text-primary);
+}
+.control-group label.control-label{
+  font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--text-secondary);display:block;margin-bottom:14px;
+}
+.toggle-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 0;border-bottom:1px solid var(--border-subtle);
+}
+.toggle-row:last-child{border-bottom:none}
+.toggle-row span{font-size:14px;color:var(--text-primary)}
+.toggle-switch{
+  width:44px;height:24px;border-radius:12px;background:var(--border-strong);
+  position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0;
+}
+.toggle-switch.active{background:var(--brand)}
+.toggle-switch::after{
+  content:'';position:absolute;top:3px;left:3px;
+  width:18px;height:18px;border-radius:50%;background:#fff;
+  transition:transform 0.2s;
+}
+.toggle-switch.active::after{transform:translateX(20px)}
+.material-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.material-swatch{
+  aspect-ratio:1;border-radius:6px;cursor:pointer;position:relative;
+  border:2px solid transparent;transition:border-color 0.2s,transform 0.15s;
+}
+.material-swatch:hover{transform:scale(1.05)}
+.material-swatch.active{border-color:var(--brand)}
+.material-swatch::after{
+  content:attr(data-name);
+  position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);
+  font-size:10px;color:var(--text-secondary);white-space:nowrap;
+}
+.ms-marble{background:linear-gradient(135deg,#e8e4df,#c8c4bf)}
+.ms-oak{background:linear-gradient(135deg,#8b6914,#6b4f0f)}
+.ms-concrete{background:linear-gradient(135deg,#8a8a8a,#6a6a6a)}
+.ms-terrazzo{background:linear-gradient(135deg,#c4b8a0,#a09080)}
+
+/* ─── FLOOR PLAN ─────────────────────────────────────────────── */
+#floorplan{padding:var(--section-pad) 0;background:var(--bg-elevated)}
+.floorplan-layout{
+  display:grid;grid-template-columns:1fr 320px;gap:32px;margin-top:64px;align-items:start;
+}
+.floorplan-canvas{
+  background:var(--bg-surface);border-radius:var(--radius-card);
+  border:1px solid var(--border-subtle);padding:32px;min-height:500px;
+  position:relative;
+}
+.fp-legend{
+  display:flex;gap:24px;margin-bottom:24px;flex-wrap:wrap;
+}
+.fp-legend-item{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.fp-dot{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+.fp-dot.available{background:var(--status-available)}
+.fp-dot.reserved{background:var(--status-reserved)}
+.fp-dot.sold{background:var(--status-sold)}
+
+.fp-building{
+  position:relative;width:100%;max-width:480px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:4px;
+}
+.fp-unit{
+  aspect-ratio:1;border-radius:4px;cursor:pointer;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:11px;font-weight:400;
+  transition:transform 0.15s,box-shadow 0.15s;border:1px solid transparent;
+}
+.fp-unit:hover{transform:scale(1.05);z-index:2}
+.fp-unit.available{
+  background:rgba(74,222,128,0.12);border-color:var(--status-available);
+  color:var(--status-available);
+}
+.fp-unit.reserved{
+  background:rgba(251,191,36,0.1);border-color:var(--status-reserved);
+  color:var(--status-reserved);
+}
+.fp-unit.sold{
+  background:rgba(239,68,68,0.12);border-color:transparent;color:var(--text-tertiary);
+  background-image:repeating-linear-gradient(45deg,rgba(239,68,68,0.08) 0px,rgba(239,68,68,0.08) 2px,transparent 2px,transparent 8px);
+}
+.fp-unit:hover .unit-tooltip{opacity:1;transform:translateY(0)}
+.unit-tooltip{
+  position:absolute;bottom:110%;left:50%;transform:translate(-50%,8px);
+  background:var(--bg-glass);border:1px solid var(--border-default);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-radius:var(--radius);padding:10px 14px;white-space:nowrap;
+  font-family:var(--font-body);font-size:12px;color:var(--text-primary);
+  opacity:0;transition:opacity 0.2s,transform 0.2s;pointer-events:none;z-index:10;
+}
+.floorplan-panel{
+  background:var(--bg-surface);border-radius:var(--radius-card);
+  border:1px solid var(--border-subtle);padding:32px;
+}
+.floorplan-panel h3{
+  font-family:var(--font-display);font-size:24px;font-weight:400;margin-bottom:4px;
+}
+.panel-status{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--status-available);margin-bottom:24px;
+}
+.panel-status::before{
+  content:'';width:8px;height:8px;border-radius:50%;background:var(--status-available);
+}
+.unit-detail-row{
+  display:flex;justify-content:space-between;padding:12px 0;
+  border-bottom:1px solid var(--border-subtle);
+}
+.unit-detail-row:last-of-type{border-bottom:none}
+.unit-detail-label{font-size:12px;color:var(--text-secondary)}
+.unit-detail-value{font-family:var(--font-mono);font-size:14px;color:var(--text-primary)}
+.panel-cta{
+  display:block;width:100%;text-align:center;background:var(--brand);color:#0A0A0A;
+  font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  padding:14px;border-radius:var(--radius-pill);margin-top:28px;
+  transition:background 0.2s;
+}
+.panel-cta:hover{background:var(--brand-hover)}
+
+/* ─── CONSTRUCTION PROGRESS ──────────────────────────────────── */
+#progress{padding:var(--section-pad) 0;background:var(--bg-base)}
+.progress-timeline{
+  position:relative;margin-top:64px;padding:0 0 32px;
+}
+.progress-track{
+  position:relative;height:2px;background:var(--border-default);margin:0 0 0;
+}
+.progress-fill{
+  height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-hover));
+  width:62%;position:relative;
+  box-shadow:0 0 12px rgba(201,169,110,0.4);
+}
+.progress-fill::after{
+  content:'';position:absolute;right:-8px;top:50%;transform:translateY(-50%);
+  width:16px;height:16px;border-radius:50%;background:var(--brand);
+  box-shadow:0 0 0 4px var(--brand-muted);
+  animation:progressPulse 2s ease-in-out infinite;
+}
+@keyframes progressPulse{
+  0%,100%{box-shadow:0 0 0 4px rgba(201,169,110,0.2)}
+  50%{box-shadow:0 0 0 10px rgba(201,169,110,0.05)}
+}
+.milestones{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:32px;
+}
+.milestone{text-align:center;position:relative}
+.milestone::before{
+  content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);
+  width:12px;height:12px;border-radius:50%;border:2px solid var(--border-strong);
+  background:var(--bg-base);z-index:2;
+}
+.milestone.done::before{background:var(--brand);border-color:var(--brand)}
+.milestone.current::before{
+  background:var(--brand);border-color:var(--brand);
+  box-shadow:0 0 0 6px rgba(201,169,110,0.15);
+  animation:progressPulse 2s ease-in-out infinite;
+}
+.milestone-date{
+  font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);margin-bottom:6px;
+}
+.milestone-label{font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:4px}
+.milestone-sub{font-size:11px;color:var(--text-tertiary)}
+.milestone.done .milestone-label{color:var(--brand)}
+
+/* ─── MAP ────────────────────────────────────────────────────── */
+#map-section{height:80vh;position:relative;overflow:hidden;background:#050810}
+.map-placeholder{
+  width:100%;height:100%;position:relative;
+  background:radial-gradient(ellipse 120% 120% at 50% 50%,#0a1020 0%,#050810 100%);
+}
+/* Simulated map grid */
+.map-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(201,169,110,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,169,110,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.map-grid::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(201,169,110,0.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,169,110,0.02) 1px,transparent 1px);
+  background-size:12px 12px;
+}
+/* Map "roads" */
+.map-road{position:absolute;background:rgba(255,255,255,0.05)}
+.road-h1{top:35%;left:0;right:0;height:2px}
+.road-h2{top:60%;left:0;right:0;height:1px}
+.road-v1{left:30%;top:0;bottom:0;width:2px}
+.road-v2{left:65%;top:0;bottom:0;width:1px}
+.road-diag{
+  position:absolute;top:20%;left:0;right:0;height:2px;
+  transform:rotate(-8deg);background:rgba(255,255,255,0.04);
+}
+
+.map-pin{
+  position:absolute;transform:translate(-50%,-50%);cursor:pointer;
+}
+.map-pin-dot{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid;font-size:14px;
+  transition:transform 0.2s,box-shadow 0.2s;
+  position:relative;
+}
+.map-pin:hover .map-pin-dot{transform:scale(1.15)}
+.map-pin.main .map-pin-dot{
+  background:var(--brand);border-color:var(--brand);color:#0A0A0A;width:44px;height:44px;font-size:18px;
+  box-shadow:0 0 24px rgba(201,169,110,0.4);
+}
+.map-pin.main .map-pin-dot::before{
+  content:'';position:absolute;width:100%;height:100%;border-radius:50%;
+  border:2px solid var(--brand);animation:pulse-ring 2.5s ease-out infinite;
+}
+.map-pin.restaurant .map-pin-dot{background:rgba(239,100,50,0.15);border-color:rgba(239,100,50,0.5);color:#ef6432}
+.map-pin.school .map-pin-dot{background:rgba(74,222,128,0.1);border-color:rgba(74,222,128,0.4);color:#4ade80}
+.map-pin.transport .map-pin-dot{background:rgba(96,165,250,0.1);border-color:rgba(96,165,250,0.4);color:#60a5fa}
+.map-pin.park .map-pin-dot{background:rgba(74,222,128,0.08);border-color:rgba(74,222,128,0.3);color:#4ade80}
+
+.map-pin-label{
+  position:absolute;top:110%;left:50%;transform:translateX(-50%);
+  background:var(--bg-glass);border:1px solid var(--border-default);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-radius:6px;padding:6px 10px;white-space:nowrap;
+  font-size:11px;font-weight:600;letter-spacing:0.05em;color:var(--text-primary);
+  opacity:0;transition:opacity 0.2s;pointer-events:none;margin-top:4px;
+}
+.map-pin:hover .map-pin-label{opacity:1}
+
+.map-overlay{
+  position:absolute;top:40px;left:40px;z-index:5;
+  background:var(--bg-glass);border:1px solid var(--border-default);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-radius:var(--radius-card);padding:24px 28px;
+}
+.map-overlay h3{
+  font-family:var(--font-display);font-size:22px;font-weight:400;
+  color:var(--text-primary);margin-bottom:16px;
+}
+.poi-list{display:flex;flex-direction:column;gap:10px}
+.poi-item{
+  display:flex;align-items:center;gap:12px;
+  font-size:13px;color:var(--text-secondary);
+}
+.poi-icon{
+  width:28px;height:28px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;
+}
+.poi-dist{font-family:var(--font-mono);font-size:12px;color:var(--brand);margin-left:auto}
+
+/* ─── CALENDAR ───────────────────────────────────────────────── */
+#calendar-section{padding:var(--section-pad) 0;background:var(--bg-elevated)}
+.calendar-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:64px}
+.calendar-widget{
+  background:var(--bg-surface);border-radius:var(--radius-card);
+  border:1px solid var(--border-subtle);overflow:hidden;
+}
+.cal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px;border-bottom:1px solid var(--border-subtle);
+}
+.cal-month{font-family:var(--font-display);font-size:20px;font-weight:400;color:var(--text-primary)}
+.cal-nav-btn{
+  width:32px;height:32px;border-radius:50%;border:1px solid var(--border-default);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-secondary);cursor:pointer;transition:border-color 0.2s,color 0.2s;
+}
+.cal-nav-btn:hover{border-color:var(--brand);color:var(--brand)}
+.cal-days-header{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  padding:12px 8px 0;
+}
+.cal-day-header{
+  text-align:center;font-size:11px;font-weight:600;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--text-tertiary);padding-bottom:8px;
+}
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);padding:8px}
+.cal-day{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--text-secondary);border-radius:50%;cursor:pointer;
+  transition:background 0.15s,color 0.15s;margin:2px;
+}
+.cal-day:hover:not(.empty):not(.past){background:var(--brand-muted);color:var(--brand)}
+.cal-day.today{color:var(--brand);font-weight:600}
+.cal-day.selected{background:var(--brand);color:#0A0A0A;font-weight:600}
+.cal-day.past{color:var(--text-disabled);cursor:default}
+.cal-day.empty{cursor:default}
+.cal-day.has-slot::after{
+  content:'';display:block;width:4px;height:4px;border-radius:50%;
+  background:var(--brand);margin:-10px auto 0;
+}
+
+.time-slots{margin-top:24px}
+.time-slots-label{
+  font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--text-secondary);margin-bottom:16px;padding:0 24px;
+}
+.slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 24px 24px}
+.time-slot{
+  padding:10px 8px;border-radius:var(--radius);border:1px solid var(--border-default);
+  font-size:13px;text-align:center;color:var(--text-primary);cursor:pointer;
+  transition:border-color 0.2s,background 0.2s;
+}
+.time-slot:hover{border-color:var(--brand);background:var(--brand-muted)}
+.time-slot.selected{border-color:var(--brand);background:var(--brand);color:#0A0A0A;font-weight:600}
+.time-slot.unavailable{color:var(--text-disabled);border-color:var(--border-subtle);cursor:default}
+
+.booking-form{display:flex;flex-direction:column;gap:20px;padding-top:8px}
+.form-group{display:flex;flex-direction:column;gap:8px}
+.form-group label{
+  font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.form-input{
+  background:var(--bg-surface);border:1px solid var(--border-default);
+  border-radius:var(--radius);padding:14px 16px;
+  font-size:15px;color:var(--text-primary);outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.form-input::placeholder{color:var(--text-tertiary)}
+.form-input:focus{
+  border-color:var(--brand);
+  box-shadow:0 0 0 3px rgba(201,169,110,0.12);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-submit{
+  background:var(--brand);color:#0A0A0A;
+  font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  padding:16px 32px;border-radius:var(--radius-pill);
+  transition:background 0.2s,transform 0.15s;margin-top:8px;
+}
+.form-submit:hover{background:var(--brand-hover);transform:translateY(-1px)}
+.reminder-btn{
+  border:1px solid var(--border-default);color:var(--text-secondary);
+  font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  padding:15px 32px;border-radius:var(--radius-pill);
+  transition:border-color 0.2s,color 0.2s;
+}
+.reminder-btn:hover{border-color:var(--brand);color:var(--brand)}
+.form-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ─── CONTACT ────────────────────────────────────────────────── */
+#contact{padding:var(--section-pad) 0;background:var(--bg-base)}
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:96px;margin-top:64px}
+.contact-info h2{
+  font-family:var(--font-display);font-size:clamp(28px,3vw,44px);
+  font-weight:400;line-height:1.2;margin:16px 0 24px;
+}
+.contact-info p{font-size:16px;color:var(--text-secondary);line-height:1.7;margin-bottom:40px}
+.contact-channels{display:flex;flex-direction:column;gap:16px}
+.contact-channel{
+  display:flex;align-items:center;gap:16px;padding:16px 20px;
+  background:var(--bg-elevated);border-radius:var(--radius-card);
+  border:1px solid var(--border-subtle);
+  transition:border-color 0.2s;cursor:pointer;
+}
+.contact-channel:hover{border-color:var(--brand)}
+.channel-icon{
+  width:44px;height:44px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;
+}
+.channel-icon.whatsapp{background:rgba(37,211,102,0.12)}
+.channel-icon.email{background:var(--brand-muted)}
+.channel-icon.phone{background:rgba(96,165,250,0.1)}
+.channel-text{flex:1}
+.channel-name{font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:2px}
+.channel-detail{font-size:13px;color:var(--text-secondary)}
+.channel-arrow{color:var(--text-tertiary);transition:color 0.2s;font-size:18px}
+.contact-channel:hover .channel-arrow{color:var(--brand)}
+
+/* ─── TEAM ───────────────────────────────────────────────────── */
+#team{padding:var(--section-pad) 0;background:var(--bg-elevated)}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+.agent-card{
+  background:var(--bg-surface);border-radius:var(--radius-card);
+  border:1px solid var(--border-subtle);padding:32px;text-align:center;
+  transition:border-color 0.2s,transform 0.2s;
+}
+.agent-card:hover{border-color:var(--brand-muted);transform:translateY(-4px)}
+.agent-avatar{
+  width:80px;height:80px;border-radius:50%;margin:0 auto 20px;
+  border:2px solid var(--border-default);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:28px;font-weight:300;
+  color:var(--text-secondary);background:var(--bg-elevated);
+}
+.agent-name{
+  font-family:var(--font-display);font-size:22px;font-weight:400;color:var(--text-primary);margin-bottom:4px;
+}
+.agent-role{
+  font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--brand);margin-bottom:16px;
+}
+.agent-bio{font-size:14px;color:var(--text-secondary);line-height:1.6;margin-bottom:24px}
+.agent-contacts{display:flex;gap:8px;justify-content:center}
+.agent-contact-btn{
+  width:36px;height:36px;border-radius:50%;border:1px solid var(--border-default);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-secondary);font-size:16px;
+  transition:border-color 0.2s,color 0.2s;
+}
+.agent-contact-btn:hover{border-color:var(--brand);color:var(--brand)}
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+footer{
+  background:var(--bg-base);border-top:1px solid var(--border-subtle);
+  padding:48px 0;
+}
+.footer-inner{
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:24px;
+}
+.footer-logo{
+  font-family:var(--font-display);font-size:20px;font-weight:500;
+  letter-spacing:0.15em;color:var(--text-primary);
+}
+.footer-links{display:flex;gap:32px}
+.footer-links a{
+  font-size:12px;font-weight:500;letter-spacing:0.06em;color:var(--text-secondary);
+  transition:color 0.2s;
+}
+.footer-links a:hover{color:var(--brand)}
+.footer-copy{font-size:12px;color:var(--text-tertiary)}
+
+/* ─── FLOATING BUTTONS ───────────────────────────────────────── */
+.fab{
+  position:fixed;bottom:32px;z-index:900;
+  width:56px;height:56px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow-float);cursor:pointer;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.fab:hover{transform:scale(1.1);box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+#whatsapp-fab{left:32px;background:var(--whatsapp);font-size:26px}
+#chatbot-fab{right:32px;background:var(--brand);font-size:22px;color:#0A0A0A}
+
+/* ─── CHATBOT WIDGET ─────────────────────────────────────────── */
+#chatbot-widget{
+  position:fixed;bottom:100px;right:32px;z-index:901;
+  width:340px;border-radius:var(--radius-card);
+  background:var(--bg-glass);border:1px solid var(--border-default);
+  backdrop-filter:blur(24px) saturate(1.2);-webkit-backdrop-filter:blur(24px) saturate(1.2);
+  box-shadow:var(--shadow-modal);
+  overflow:hidden;display:none;flex-direction:column;
+  animation:chatSlideUp 0.25s ease;
+}
+#chatbot-widget.open{display:flex}
+@keyframes chatSlideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.chat-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;border-bottom:1px solid var(--border-subtle);
+}
+.chat-agent-info{display:flex;align-items:center;gap:12px}
+.chat-avatar{
+  width:36px;height:36px;border-radius:50%;background:var(--brand-muted);
+  border:1px solid var(--brand);display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+}
+.chat-agent-name{font-size:14px;font-weight:600;color:var(--text-primary)}
+.chat-status{font-size:12px;color:var(--status-available);display:flex;align-items:center;gap:5px}
+.chat-status::before{
+  content:'';width:6px;height:6px;border-radius:50%;background:var(--status-available);
+}
+.chat-close{
+  width:28px;height:28px;border-radius:50%;border:1px solid var(--border-default);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-secondary);font-size:16px;cursor:pointer;
+  transition:border-color 0.2s,color 0.2s;
+}
+.chat-close:hover{border-color:var(--brand);color:var(--brand)}
+.chat-messages{height:280px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+.chat-messages::-webkit-scrollbar{width:4px}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:2px}
+.chat-bubble{
+  max-width:80%;padding:12px 16px;border-radius:var(--radius);font-size:14px;line-height:1.5;
+}
+.chat-bubble.bot{
+  background:var(--bg-surface);color:var(--text-primary);border-bottom-left-radius:2px;
+  align-self:flex-start;
+}
+.chat-bubble.user{
+  background:var(--brand);color:#0A0A0A;font-weight:500;
+  border-bottom-right-radius:2px;align-self:flex-end;
+}
+.chat-suggestions{padding:0 16px 12px;display:flex;flex-wrap:wrap;gap:8px}
+.chat-suggestion{
+  border:1px solid var(--border-default);border-radius:var(--radius-pill);
+  padding:6px 14px;font-size:12px;color:var(--text-secondary);cursor:pointer;
+  transition:border-color 0.2s,color 0.2s;white-space:nowrap;
+}
+.chat-suggestion:hover{border-color:var(--brand);color:var(--brand)}
+.chat-input-row{
+  display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border-subtle);
+}
+.chat-input{
+  flex:1;background:var(--bg-surface);border:1px solid var(--border-default);
+  border-radius:var(--radius-pill);padding:10px 16px;
+  font-size:14px;color:var(--text-primary);outline:none;
+}
+.chat-input::placeholder{color:var(--text-tertiary)}
+.chat-input:focus{border-color:var(--brand)}
+.chat-send{
+  width:36px;height:36px;border-radius:50%;background:var(--brand);
+  display:flex;align-items:center;justify-content:center;
+  color:#0A0A0A;font-size:16px;flex-shrink:0;transition:background 0.2s;
+}
+.chat-send:hover{background:var(--brand-hover)}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media(max-width:1024px){
+  :root{--page-pad:48px;--section-pad:80px}
+  .nav-links{display:none}
+  .floorplan-layout{grid-template-columns:1fr}
+  .contact-layout{grid-template-columns:1fr;gap:48px}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .calendar-layout{grid-template-columns:1fr}
+  .render-controls{width:240px}
+}
+@media(max-width:640px){
+  :root{--page-pad:24px;--section-pad:64px}
+  .hero-title{font-size:40px}
+  .hero-ctas{flex-direction:column;width:100%}
+  .btn-primary,.btn-outline{width:100%;text-align:center}
+  .narrative-stat-row{grid-template-columns:1fr}
+  .gallery-item:nth-child(1){grid-column:1/-1;height:280px}
+  .gallery-item:nth-child(2){grid-column:1/-1;height:220px}
+  .gallery-item:nth-child(3),.gallery-item:nth-child(4),.gallery-item:nth-child(5){
+    grid-column:span 6;height:180px
+  }
+  .render-section{flex-direction:column}
+  .render-controls{width:100%;border-left:none;border-top:1px solid var(--border-subtle)}
+  .team-grid{grid-template-columns:1fr}
+  #chatbot-widget{width:calc(100vw - 32px);right:16px;bottom:88px}
+  #chatbot-fab{right:16px;bottom:16px}
+  #whatsapp-fab{left:16px;bottom:16px}
+  .map-overlay{top:16px;left:16px;right:16px;padding:16px}
+  .milestones{grid-template-columns:1fr;gap:32px}
+  .milestone::before{top:auto;left:-20px;top:50%}
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">AURA</div>
+  <div class="nav-links">
+    <a href="#narrative">Overview</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#render-section">Explore</a>
+    <a href="#floorplan">Floorplan</a>
+    <a href="#map-section">Location</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#calendar-section" class="nav-cta">Book a Viewing</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">A New Standard in Luxury Living</p>
+    <h1 class="hero-title">AURA<br><em>Residences</em></h1>
+    <p class="hero-tagline">Forty-two singular residences poised above the city. Where architectural precision meets the art of living extraordinarily well.</p>
+    <div class="hero-ctas">
+      <a href="#calendar-section" class="btn-primary">Book a Viewing</a>
+      <a href="#render-section" class="btn-outline">Explore Residences</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- TICKER TAPE -->
+<div id="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <!-- Duplicated for seamless loop -->
+    <span class="ticker-item"><span class="ticker-dot"></span>42 Exclusive Residences</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Rooftop Infinity Pool</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Private Concierge</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Completion Q3 2027</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>From $1.2M</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Floor-to-Ceiling Glass</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Smart Home Integrated</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>24/7 Concierge</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>42 Exclusive Residences</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Rooftop Infinity Pool</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Private Concierge</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Completion Q3 2027</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>From $1.2M</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Floor-to-Ceiling Glass</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Smart Home Integrated</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>24/7 Concierge</span>
+  </div>
+</div>
+
+<!-- NARRATIVE -->
+<section id="narrative">
+  <div class="container">
+    <div class="section-header">
+      <p class="eyebrow reveal">The Vision</p>
+      <h2 class="section-title reveal reveal-delay-1">Architecture as<br>a way of living</h2>
+    </div>
+    <p class="narrative-body reveal reveal-delay-2">
+      AURA Residences is not simply a building. It is a considered response to the city around it — a vertical neighbourhood conceived to elevate daily life through proportion, materiality, and an unwavering commitment to craft. Each residence has been designed from the inside out, prioritising the lived experience above all else.
+    </p>
+    <div class="pull-quote reveal reveal-delay-3">
+      "Every detail is a decision. Every material, a statement. Every view, a gift from the city to those who choose to live above it."
+    </div>
+    <p class="narrative-body reveal">
+      Conceived by award-winning architectural studio Meridian, the building's façade responds to the path of the sun — angled louvres of hand-finished aluminium diffuse light through the day, creating shifting patterns across the interior floors. The lobby is a double-height atrium in honed Calacatta marble and smoked oak, attended by a dedicated concierge around the clock.
+    </p>
+    <div class="narrative-stat-row reveal reveal-delay-1">
+      <div class="narrative-stat">
+        <span class="stat-number">42</span>
+        <span class="stat-label">Residences</span>
+      </div>
+      <div class="narrative-stat">
+        <span class="stat-number">28</span>
+        <span class="stat-label">Floors</span>
+      </div>
+      <div class="narrative-stat">
+        <span class="stat-number">97%</span>
+        <span class="stat-label">Sold in Stage 1</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section id="video-section">
+  <div class="video-bg"></div>
+  <div class="video-overlay-gradient"></div>
+  <button class="play-btn" aria-label="Play video" onclick="this.style.display='none'">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+      <polygon points="6,3 20,12 6,21"/>
+    </svg>
+  </button>
+  <div class="video-meta">
+    <div class="video-title-block">
+      <span class="video-label">Official Film</span>
+      <h3>A Life Above the City</h3>
+    </div>
+    <div class="video-controls">
+      <button class="video-ctrl-btn" aria-label="Mute">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/>
+          <path d="M15.54,8.46a5,5,0,0,1,0,7.07"/>
+          <path d="M19.07,4.93a10,10,0,0,1,0,14.14"/>
+        </svg>
+      </button>
+      <button class="video-ctrl-btn" aria-label="Fullscreen">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15,3 21,3 21,9"/>
+          <polyline points="9,21 3,21 3,15"/>
+          <line x1="21" y1="3" x2="14" y2="10"/>
+          <line x1="3" y1="21" x2="10" y2="14"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="section-header">
+      <p class="eyebrow reveal">The Residences</p>
+      <h2 class="section-title reveal reveal-delay-1">Curated Spaces,<br>Singular Views</h2>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <span style="font-size:13px;letter-spacing:0.1em;color:var(--text-tertiary)">LIVING ROOM — PENTHOUSE</span>
+        </div>
+        <div class="gallery-zoom-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+          </svg>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <span style="font-size:13px;letter-spacing:0.1em;color:var(--text-tertiary)">PRIMARY SUITE</span>
+        </div>
+        <div class="gallery-zoom-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+          </svg>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <span style="font-size:13px;letter-spacing:0.1em;color:var(--text-tertiary)">KITCHEN</span>
+        </div>
+        <div class="gallery-zoom-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <span style="font-size:13px;letter-spacing:0.1em;color:var(--text-tertiary)">ROOFTOP POOL</span>
+        </div>
+        <div class="gallery-zoom-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <span style="font-size:13px;letter-spacing:0.1em;color:var(--text-tertiary)">LOBBY</span>
+        </div>
+        <div class="gallery-zoom-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3D / INTERACTIVE -->
+<section id="render-section" style="display:flex">
+  <div class="render-canvas">
+    <div class="wireframe-building">
+      <div class="wireframe-face wf-front"></div>
+      <div class="wireframe-face wf-side"></div>
+      <div class="wireframe-face wf-top"></div>
+      <div class="wf-line wf-h1"></div>
+      <div class="wf-line wf-h2"></div>
+      <div class="wf-line wf-v1"></div>
+      <div class="wf-line wf-v2"></div>
+      <div class="render-hotspot hs-1">
+        <span class="hotspot-tooltip">
+          <span class="hotspot-label">Rooftop Terrace</span>
+          <span class="hotspot-sub">Level 28 · 420m²</span>
+        </span>
+      </div>
+      <div class="render-hotspot hs-2">
+        <span class="hotspot-tooltip">
+          <span class="hotspot-label">Sky Lounge</span>
+          <span class="hotspot-sub">Level 20 · Residents only</span>
+        </span>
+      </div>
+      <div class="render-hotspot hs-3">
+        <span class="hotspot-tooltip">
+          <span class="hotspot-label">Grand Lobby</span>
+          <span class="hotspot-sub">Ground · 24/7 Concierge</span>
+        </span>
+      </div>
+    </div>
+    <div style="position:absolute;bottom:32px;left:0;right:0;text-align:center">
+      <p style="font-size:12px;color:var(--text-tertiary);letter-spacing:0.06em">
+        Click &amp; drag to orbit · Scroll to zoom · Hover pins for details
+      </p>
+    </div>
+  </div>
+  <div class="render-controls">
+    <div>
+      <p class="eyebrow" style="margin-bottom:12px">Interactive Model</p>
+      <h3>Explore Every<br>Detail</h3>
+    </div>
+    <div class="control-group">
+      <label class="control-label">Virtual Staging</label>
+      <div class="toggle-row">
+        <span>Show Furniture</span>
+        <div class="toggle-switch active" onclick="this.classList.toggle('active')" role="switch"></div>
+      </div>
+      <div class="toggle-row">
+        <span>Natural Light</span>
+        <div class="toggle-switch active" onclick="this.classList.toggle('active')" role="switch"></div>
+      </div>
+      <div class="toggle-row">
+        <span>Night Mode</span>
+        <div class="toggle-switch" onclick="this.classList.toggle('active')" role="switch"></div>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">Floor Finish</label>
+      <div class="material-grid">
+        <div class="material-swatch ms-marble active" data-name="Marble" title="Calacatta Marble"></div>
+        <div class="material-swatch ms-oak" data-name="Oak" title="Smoked Oak"></div>
+        <div class="material-swatch ms-concrete" data-name="Concrete" title="Honed Concrete"></div>
+        <div class="material-swatch ms-terrazzo" data-name="Terrazzo" title="Terrazzo"></div>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">View Level</label>
+      <input type="range" min="1" max="28" value="14" style="width:100%;accent-color:var(--brand)">
+      <div style="display:flex;justify-content:space-between;margin-top:6px">
+        <span style="font-size:11px;color:var(--text-tertiary)">Level 1</span>
+        <span style="font-family:var(--font-mono);font-size:13px;color:var(--brand)">Level 14</span>
+        <span style="font-size:11px;color:var(--text-tertiary)">Level 28</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOOR PLAN -->
+<section id="floorplan">
+  <div class="container">
+    <div class="section-header">
+      <p class="eyebrow reveal">Availability</p>
+      <h2 class="section-title reveal reveal-delay-1">Select Your<br>Residence</h2>
+    </div>
+    <div class="fp-legend reveal reveal-delay-2">
+      <div class="fp-legend-item"><div class="fp-dot available"></div>Available</div>
+      <div class="fp-legend-item"><div class="fp-dot reserved"></div>Reserved</div>
+      <div class="fp-legend-item"><div class="fp-dot sold"></div>Sold</div>
+    </div>
+    <div class="floorplan-layout">
+      <div class="floorplan-canvas reveal">
+        <div class="fp-building" id="fp-grid"></div>
+      </div>
+      <div class="floorplan-panel reveal reveal-delay-2" id="unit-panel">
+        <p class="eyebrow" style="margin-bottom:8px">Selected Unit</p>
+        <h3 id="unit-name">Unit 14A</h3>
+        <div class="panel-status" id="unit-status">Available</div>
+        <div class="unit-detail-row">
+          <span class="unit-detail-label">Type</span>
+          <span class="unit-detail-value" id="unit-type">3 Bed / 2 Bath</span>
+        </div>
+        <div class="unit-detail-row">
+          <span class="unit-detail-label">Floor Area</span>
+          <span class="unit-detail-value" id="unit-area">142 m²</span>
+        </div>
+        <div class="unit-detail-row">
+          <span class="unit-detail-label">Level</span>
+          <span class="unit-detail-value" id="unit-level">14</span>
+        </div>
+        <div class="unit-detail-row">
+          <span class="unit-detail-label">Aspect</span>
+          <span class="unit-detail-value" id="unit-aspect">North-East</span>
+        </div>
+        <div class="unit-detail-row">
+          <span class="unit-detail-label">Price</span>
+          <span class="unit-detail-value" id="unit-price">$2,400,000</span>
+        </div>
+        <a href="#calendar-section" class="panel-cta">Enquire About This Unit</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSTRUCTION PROGRESS -->
+<section id="progress">
+  <div class="container">
+    <div class="section-header">
+      <p class="eyebrow reveal">Live Update</p>
+      <h2 class="section-title reveal reveal-delay-1">Construction<br>Progress</h2>
+      <p class="reveal reveal-delay-2" style="color:var(--text-secondary);margin-top:16px;font-size:16px">
+        As of March 2026 — Level 17 of 28 complete. On schedule for Q3 2027 delivery.
+      </p>
+    </div>
+    <div class="progress-timeline reveal">
+      <div class="progress-track">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="milestones">
+        <div class="milestone done">
+          <div class="milestone-date">Q1 2025</div>
+          <div class="milestone-label">Foundation</div>
+          <div class="milestone-sub">Complete</div>
+        </div>
+        <div class="milestone done">
+          <div class="milestone-date">Q3 2025</div>
+          <div class="milestone-label">Structure</div>
+          <div class="milestone-sub">Level 1–10</div>
+        </div>
+        <div class="milestone current">
+          <div class="milestone-date">Q1 2026</div>
+          <div class="milestone-label">Mid-Rise</div>
+          <div class="milestone-sub">Level 11–20 ↗</div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-date">Q3 2026</div>
+          <div class="milestone-label">Upper Floors</div>
+          <div class="milestone-sub">Level 21–28</div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-date">Q3 2027</div>
+          <div class="milestone-label">Completion</div>
+          <div class="milestone-sub">Handover</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section id="map-section">
+  <div class="map-placeholder">
+    <div class="map-grid"></div>
+    <div class="map-road road-h1"></div>
+    <div class="map-road road-h2"></div>
+    <div class="map-road road-v1"></div>
+    <div class="map-road road-v2"></div>
+    <div class="map-road road-diag"></div>
+    <!-- Main pin -->
+    <div class="map-pin main" style="top:45%;left:48%">
+      <div class="map-pin-dot">⌂</div>
+      <div class="map-pin-label">AURA Residences</div>
+    </div>
+    <!-- POI pins -->
+    <div class="map-pin restaurant" style="top:38%;left:55%">
+      <div class="map-pin-dot">🍴</div>
+      <div class="map-pin-label">The Atlas Restaurant</div>
+    </div>
+    <div class="map-pin school" style="top:52%;left:38%">
+      <div class="map-pin-dot">🎓</div>
+      <div class="map-pin-label">St. Catherine's College</div>
+    </div>
+    <div class="map-pin transport" style="top:60%;left:51%">
+      <div class="map-pin-dot">🚇</div>
+      <div class="map-pin-label">Metro Station</div>
+    </div>
+    <div class="map-pin park" style="top:35%;left:42%">
+      <div class="map-pin-dot">🌿</div>
+      <div class="map-pin-label">Riverside Park</div>
+    </div>
+    <div class="map-pin restaurant" style="top:55%;left:60%">
+      <div class="map-pin-dot">☕</div>
+      <div class="map-pin-label">Café Nero</div>
+    </div>
+    <!-- Overlay panel -->
+    <div class="map-overlay">
+      <h3>Prime Location</h3>
+      <div class="poi-list">
+        <div class="poi-item">
+          <div class="poi-icon" style="background:rgba(239,100,50,0.12)">🍴</div>
+          <span>Fine Dining</span>
+          <span class="poi-dist">2 min</span>
+        </div>
+        <div class="poi-item">
+          <div class="poi-icon" style="background:rgba(96,165,250,0.1)">🚇</div>
+          <span>Metro</span>
+          <span class="poi-dist">4 min</span>
+        </div>
+        <div class="poi-item">
+          <div class="poi-icon" style="background:rgba(74,222,128,0.1)">🌿</div>
+          <span>Riverside Park</span>
+          <span class="poi-dist">6 min</span>
+        </div>
+        <div class="poi-item">
+          <div class="poi-icon" style="background:rgba(74,222,128,0.1)">🎓</div>
+          <span>Schools</span>
+          <span class="poi-dist">8 min</span>
+        </div>
+        <div class="poi-item">
+          <div class="poi-icon" style="background:rgba(201,169,110,0.12)">✈️</div>
+          <span>Airport</span>
+          <span class="poi-dist">22 min</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDAR -->
+<section id="calendar-section">
+  <div class="container">
+    <div class="section-header">
+      <p class="eyebrow reveal">Experience AURA</p>
+      <h2 class="section-title reveal reveal-delay-1">Book a Private<br>Viewing</h2>
+      <p class="reveal reveal-delay-2" style="color:var(--text-secondary);margin-top:16px;font-size:16px">
+        Our sales team will personally guide you through the residences and answer every question.
+      </p>
+    </div>
+    <div class="calendar-layout">
+      <div class="reveal">
+        <div class="calendar-widget">
+          <div class="cal-header">
+            <button class="cal-nav-btn">‹</button>
+            <span class="cal-month">March 2026</span>
+            <button class="cal-nav-btn">›</button>
+          </div>
+          <div class="cal-days-header">
+            <div class="cal-day-header">Mo</div>
+            <div class="cal-day-header">Tu</div>
+            <div class="cal-day-header">We</div>
+            <div class="cal-day-header">Th</div>
+            <div class="cal-day-header">Fr</div>
+            <div class="cal-day-header">Sa</div>
+            <div class="cal-day-header">Su</div>
+          </div>
+          <div class="cal-days" id="cal-days"></div>
+        </div>
+        <div class="time-slots" style="margin-top:16px;background:var(--bg-surface);border-radius:var(--radius-card);border:1px solid var(--border-subtle);padding-top:24px">
+          <div class="time-slots-label">Available Times — Thu 19 Mar</div>
+          <div class="slots-grid">
+            <div class="time-slot">9:00 AM</div>
+            <div class="time-slot selected">10:30 AM</div>
+            <div class="time-slot">12:00 PM</div>
+            <div class="time-slot unavailable">1:30 PM</div>
+            <div class="time-slot">3:00 PM</div>
+            <div class="time-slot">4:30 PM</div>
+          </div>
+        </div>
+      </div>
+      <form class="booking-form reveal reveal-delay-2" onsubmit="return false">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input class="form-input" type="text" placeholder="James">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input class="form-input" type="text" placeholder="Cruickshank">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input class="form-input" type="email" placeholder="james@example.com">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input class="form-input" type="tel" placeholder="+1 555 000 0000">
+        </div>
+        <div class="form-group">
+          <label>Message (Optional)</label>
+          <textarea class="form-input" rows="3" placeholder="I'm interested in a 3-bedroom residence on a high floor…" style="resize:vertical"></textarea>
+        </div>
+        <div class="form-actions">
+          <button class="form-submit">Confirm Viewing — 10:30 AM</button>
+          <button class="reminder-btn">Set Reminder</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-layout">
+      <div class="contact-info reveal">
+        <p class="eyebrow">Get in Touch</p>
+        <h2>We're here to answer every question</h2>
+        <p>Our dedicated sales team is available seven days a week. Whether you have a question about a specific residence, the construction timeline, or the surrounding neighbourhood, we're ready to help.</p>
+        <div class="contact-channels">
+          <div class="contact-channel">
+            <div class="channel-icon whatsapp">💬</div>
+            <div class="channel-text">
+              <div class="channel-name">WhatsApp</div>
+              <div class="channel-detail">+1 555 AURA 000</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </div>
+          <div class="contact-channel">
+            <div class="channel-icon email">✉️</div>
+            <div class="channel-text">
+              <div class="channel-name">Email</div>
+              <div class="channel-detail">sales@auraresidences.com</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </div>
+          <div class="contact-channel">
+            <div class="channel-icon phone">📞</div>
+            <div class="channel-text">
+              <div class="channel-name">Phone</div>
+              <div class="channel-detail">+1 555 287 2000</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </div>
+        </div>
+      </div>
+      <form class="booking-form reveal reveal-delay-2" onsubmit="return false" style="padding-top:0">
+        <p class="eyebrow" style="margin-bottom:16px">Send a Message</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input class="form-input" type="text" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input class="form-input" type="text" placeholder="Your surname">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input class="form-input" type="email" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea class="form-input" rows="4" placeholder="Tell us what you're looking for…" style="resize:vertical"></textarea>
+        </div>
+        <button class="form-submit" style="width:100%">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <div class="section-header">
+      <p class="eyebrow reveal">Our Team</p>
+      <h2 class="section-title reveal reveal-delay-1">Your Dedicated<br>Sales Team</h2>
+    </div>
+    <div class="team-grid">
+      <div class="agent-card reveal">
+        <div class="agent-avatar">S</div>
+        <div class="agent-name">Sophia Vance</div>
+        <div class="agent-role">Head of Sales</div>
+        <div class="agent-bio">15 years placing discerning buyers in landmark properties. Sophia's intimate knowledge of the building and its design sets AURA apart.</div>
+        <div class="agent-contacts">
+          <a href="#" class="agent-contact-btn" title="Email">✉</a>
+          <a href="#" class="agent-contact-btn" title="Phone">☏</a>
+          <a href="#" class="agent-contact-btn" title="WhatsApp">💬</a>
+        </div>
+      </div>
+      <div class="agent-card reveal reveal-delay-1">
+        <div class="agent-avatar">M</div>
+        <div class="agent-name">Marcus Reid</div>
+        <div class="agent-role">Senior Associate</div>
+        <div class="agent-bio">Specialising in off-plan acquisitions and investor relations, Marcus brings a rigorous financial perspective to every conversation.</div>
+        <div class="agent-contacts">
+          <a href="#" class="agent-contact-btn">✉</a>
+          <a href="#" class="agent-contact-btn">☏</a>
+          <a href="#" class="agent-contact-btn">💬</a>
+        </div>
+      </div>
+      <div class="agent-card reveal reveal-delay-2">
+        <div class="agent-avatar">L</div>
+        <div class="agent-name">Lena Hartmann</div>
+        <div class="agent-role">Client Experience</div>
+        <div class="agent-bio">From first enquiry to keys-in-hand, Lena ensures every step of your purchase journey is seamless, personal, and memorable.</div>
+        <div class="agent-contacts">
+          <a href="#" class="agent-contact-btn">✉</a>
+          <a href="#" class="agent-contact-btn">☏</a>
+          <a href="#" class="agent-contact-btn">💬</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">AURA</div>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookie Settings</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-copy">© 2026 AURA Residences. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING: WhatsApp -->
+<a id="whatsapp-fab" class="fab" href="https://wa.me/15552872000" target="_blank" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
+
+<!-- FLOATING: Chatbot -->
+<button id="chatbot-fab" class="fab" aria-label="Open AI Assistant" onclick="toggleChat()">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    <circle cx="9" cy="10" r="1" fill="currentColor"/>
+    <circle cx="12" cy="10" r="1" fill="currentColor"/>
+    <circle cx="15" cy="10" r="1" fill="currentColor"/>
+  </svg>
+</button>
+
+<!-- CHATBOT WIDGET -->
+<div id="chatbot-widget">
+  <div class="chat-header">
+    <div class="chat-agent-info">
+      <div class="chat-avatar">✦</div>
+      <div>
+        <div class="chat-agent-name">AURA AI</div>
+        <div class="chat-status">Online now</div>
+      </div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-bubble bot">Welcome to AURA Residences. I'm your AI guide — trained on every detail of the building, its residences, and the surrounding neighbourhood. What would you like to know?</div>
+  </div>
+  <div class="chat-suggestions">
+    <button class="chat-suggestion" onclick="sendSuggestion(this)">Pricing & availability</button>
+    <button class="chat-suggestion" onclick="sendSuggestion(this)">Construction timeline</button>
+    <button class="chat-suggestion" onclick="sendSuggestion(this)">Amenities</button>
+    <button class="chat-suggestion" onclick="sendSuggestion(this)">Book a viewing</button>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" type="text" placeholder="Ask anything about AURA…" id="chat-input" onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+// ─── SCROLL PROGRESS BAR ──────────────────────────────────────
+const progressBar = document.getElementById('progress-bar');
+function updateProgress() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progressBar.style.width = pct + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+
+// ─── NAV SCROLL STATE ─────────────────────────────────────────
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ─── SCROLL REVEAL ────────────────────────────────────────────
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+reveals.forEach(el => revealObserver.observe(el));
+
+// ─── NAV ACTIVE SECTION ───────────────────────────────────────
+const sections = document.querySelectorAll('section[id], div[id="ticker"]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+      });
+    }
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
+
+// ─── FLOOR PLAN GENERATOR ─────────────────────────────────────
+const units = [
+  { id:'1A', status:'sold',      type:'2 Bed / 1 Bath', area:'88 m²',  level:1,  aspect:'East',       price:'Sold' },
+  { id:'1B', status:'sold',      type:'1 Bed / 1 Bath', area:'62 m²',  level:1,  aspect:'West',       price:'Sold' },
+  { id:'2A', status:'sold',      type:'3 Bed / 2 Bath', area:'142 m²', level:2,  aspect:'North-East',  price:'Sold' },
+  { id:'2B', status:'available', type:'2 Bed / 2 Bath', area:'108 m²', level:2,  aspect:'South',      price:'$1,840,000' },
+  { id:'3A', status:'reserved',  type:'2 Bed / 1 Bath', area:'92 m²',  level:3,  aspect:'North',      price:'$1,560,000' },
+  { id:'3B', status:'available', type:'3 Bed / 2 Bath', area:'148 m²', level:3,  aspect:'East',       price:'$2,100,000' },
+  { id:'4A', status:'sold',      type:'1 Bed / 1 Bath', area:'64 m²',  level:4,  aspect:'West',       price:'Sold' },
+  { id:'4B', status:'available', type:'2 Bed / 2 Bath', area:'112 m²', level:4,  aspect:'North-West', price:'$1,920,000' },
+  { id:'5A', status:'available', type:'3 Bed / 2 Bath', area:'155 m²', level:5,  aspect:'North-East', price:'$2,240,000' },
+  { id:'5B', status:'reserved',  type:'2 Bed / 1 Bath', area:'90 m²',  level:5,  aspect:'South-East', price:'$1,620,000' },
+  { id:'6A', status:'sold',      type:'1 Bed / 1 Bath', area:'61 m²',  level:6,  aspect:'East',       price:'Sold' },
+  { id:'6B', status:'available', type:'3 Bed / 3 Bath', area:'180 m²', level:6,  aspect:'North',      price:'$2,880,000' },
+  { id:'14A',status:'available', type:'3 Bed / 2 Bath', area:'142 m²', level:14, aspect:'North-East', price:'$2,400,000' },
+  { id:'14B',status:'reserved',  type:'2 Bed / 2 Bath', area:'110 m²', level:14, aspect:'South',      price:'$1,980,000' },
+  { id:'20A',status:'available', type:'Penthouse / 4 Bed', area:'310 m²', level:20, aspect:'360°',   price:'$6,200,000' },
+  { id:'20B',status:'available', type:'3 Bed / 3 Bath', area:'195 m²', level:20, aspect:'North',     price:'$3,400,000' },
+];
+
+const fpGrid = document.getElementById('fp-grid');
+const panel = {
+  name: document.getElementById('unit-name'),
+  status: document.getElementById('unit-status'),
+  type: document.getElementById('unit-type'),
+  area: document.getElementById('unit-area'),
+  level: document.getElementById('unit-level'),
+  aspect: document.getElementById('unit-aspect'),
+  price: document.getElementById('unit-price'),
+};
+
+// fill remaining with mix of statuses
+const statuses = ['available','available','sold','reserved','sold','available'];
+for(let i = units.length; i < 32; i++) {
+  const s = statuses[i % statuses.length];
+  units.push({ id: (i+1)+'X', status:s, type:'2 Bed / 2 Bath', area:'102 m²',
+    level:i+1, aspect:'Various', price: s==='sold'?'Sold':'$1,750,000' });
+}
+
+units.slice(0,32).forEach(unit => {
+  const el = document.createElement('div');
+  el.className = `fp-unit ${unit.status}`;
+  el.textContent = unit.id;
+  el.title = `Unit ${unit.id}`;
+  const tooltip = document.createElement('div');
+  tooltip.className = 'unit-tooltip';
+  tooltip.innerHTML = `<strong>Unit ${unit.id}</strong><br>${unit.status.charAt(0).toUpperCase()+unit.status.slice(1)} · ${unit.price}`;
+  el.appendChild(tooltip);
+  el.addEventListener('click', () => {
+    panel.name.textContent = 'Unit ' + unit.id;
+    panel.status.textContent = unit.status.charAt(0).toUpperCase() + unit.status.slice(1);
+    panel.status.style.color = unit.status === 'available' ? 'var(--status-available)' : unit.status === 'reserved' ? 'var(--status-reserved)' : 'var(--status-sold)';
+    panel.type.textContent = unit.type;
+    panel.area.textContent = unit.area;
+    panel.level.textContent = unit.level;
+    panel.aspect.textContent = unit.aspect;
+    panel.price.textContent = unit.price;
+    document.querySelectorAll('.fp-unit').forEach(u => u.style.outline = 'none');
+    el.style.outline = '2px solid var(--brand)';
+  });
+  fpGrid.appendChild(el);
+});
+
+// ─── CALENDAR ─────────────────────────────────────────────────
+const calDays = document.getElementById('cal-days');
+const today = new Date(2026, 2, 18); // March 18 2026
+const firstDay = new Date(2026, 2, 1);
+let startDay = (firstDay.getDay() + 6) % 7; // Mon=0
+
+// Empty cells
+for (let i = 0; i < startDay; i++) {
+  const empty = document.createElement('div');
+  empty.className = 'cal-day empty';
+  calDays.appendChild(empty);
+}
+
+// Available slots on specific days
+const slotDays = [19,20,23,24,25,26,27,30,31];
+for (let d = 1; d <= 31; d++) {
+  const day = document.createElement('div');
+  day.className = 'cal-day';
+  const isPast = d < 18;
+  const isToday = d === 18;
+  if (isPast) day.className += ' past';
+  else if (isToday) day.className += ' today';
+  if (slotDays.includes(d)) day.className += ' has-slot';
+  day.textContent = d;
+  if (!isPast) {
+    day.addEventListener('click', () => {
+      document.querySelectorAll('.cal-day').forEach(x => x.classList.remove('selected'));
+      day.classList.add('selected');
+    });
+  }
+  calDays.appendChild(day);
+}
+
+// Time slot clicks
+document.querySelectorAll('.time-slot:not(.unavailable)').forEach(slot => {
+  slot.addEventListener('click', () => {
+    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+    slot.classList.add('selected');
+    const btn = document.querySelector('.form-submit');
+    btn.textContent = `Confirm Viewing — ${slot.textContent}`;
+  });
+});
+
+// Material swatches
+document.querySelectorAll('.material-swatch').forEach(swatch => {
+  swatch.addEventListener('click', () => {
+    document.querySelectorAll('.material-swatch').forEach(s => s.classList.remove('active'));
+    swatch.classList.add('active');
+  });
+});
+
+// ─── CHATBOT ──────────────────────────────────────────────────
+const chatWidget = document.getElementById('chatbot-widget');
+const chatMessages = document.getElementById('chat-messages');
+const chatInput = document.getElementById('chat-input');
+
+function toggleChat() {
+  chatWidget.classList.toggle('open');
+  if (chatWidget.classList.contains('open')) chatInput.focus();
+}
+
+const botReplies = {
+  'pricing': 'Residences at AURA start from $1.2M for a one-bedroom and rise to $6.2M for the penthouse. We have several competitively priced units still available. Would you like to see the full availability?',
+  'availability': 'We currently have 14 residences available across levels 2–20, including our spectacular Level 20 collection. Would you like to view the interactive floor plan?',
+  'construction': 'Construction is progressing excellently — we\'re currently at Level 17 of 28. We remain on track for our Q3 2027 completion and handover date.',
+  'amenities': 'AURA features a rooftop infinity pool, private concierge, residents\' sky lounge on Level 20, a wellness centre, secure basement parking, and smart home integration throughout every residence.',
+  'book': 'I\'d love to arrange a private viewing for you! Please select a date and time in the calendar above, or I can connect you directly with Sophia, our Head of Sales.',
+  'default': 'That\'s a great question. Our sales team would be best placed to give you a detailed answer. Shall I connect you with one of our agents, or would you like to book a private viewing?',
+};
+
+function getBotReply(msg) {
+  const m = msg.toLowerCase();
+  if (m.includes('price') || m.includes('cost') || m.includes('much')) return botReplies.pricing;
+  if (m.includes('availab') || m.includes('unit') || m.includes('floor')) return botReplies.availability;
+  if (m.includes('construct') || m.includes('timeline') || m.includes('complet') || m.includes('finish')) return botReplies.construction;
+  if (m.includes('ameniti') || m.includes('pool') || m.includes('gym') || m.includes('facility')) return botReplies.amenities;
+  if (m.includes('book') || m.includes('viewing') || m.includes('visit') || m.includes('tour')) return botReplies.book;
+  return botReplies.default;
+}
+
+function addMessage(text, role) {
+  const bubble = document.createElement('div');
+  bubble.className = `chat-bubble ${role}`;
+  bubble.textContent = text;
+  chatMessages.appendChild(bubble);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function sendChat() {
+  const msg = chatInput.value.trim();
+  if (!msg) return;
+  addMessage(msg, 'user');
+  chatInput.value = '';
+  setTimeout(() => addMessage(getBotReply(msg), 'bot'), 700);
+}
+
+function sendSuggestion(btn) {
+  addMessage(btn.textContent, 'user');
+  const key = btn.textContent.toLowerCase();
+  let reply;
+  if (key.includes('pric')) reply = botReplies.pricing;
+  else if (key.includes('construct')) reply = botReplies.construction;
+  else if (key.includes('ameniti')) reply = botReplies.amenities;
+  else reply = botReplies.book;
+  setTimeout(() => addMessage(reply, 'bot'), 700);
+  btn.remove();
+}
+</script>
+</body>
+</html>
