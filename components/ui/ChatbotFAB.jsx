@@ -12,25 +12,7 @@ export default function ChatbotFAB() {
       <button
         onClick={() => setIsOpen(o => !o)}
         aria-label="Open AI Assistant"
-        style={{
-          position: 'fixed',
-          bottom: '32px',
-          right: '32px',
-          zIndex: '900',
-          width: '56px',
-          height: '56px',
-          borderRadius: '50%',
-          background: 'var(--brand)',
-          color: '#0A0A0A',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: 'var(--shadow-float)',
-          cursor: 'pointer',
-          border: 'none',
-          transition: 'transform 0.2s, box-shadow 0.2s',
-          fontSize: '22px',
-        }}
+        className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-[900] w-14 h-14 rounded-full bg-brand text-bg-base flex items-center justify-center shadow-[var(--shadow-float)] cursor-pointer border-none transition-[transform,box-shadow] duration-200 text-[22px]"
         onMouseEnter={e => {
           e.currentTarget.style.transform = 'scale(1.1)'
           e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.6)'

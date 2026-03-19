@@ -8,52 +8,27 @@ export default function VideoSection() {
   return (
     <section
       id="video-section"
-      style={{
-        position: 'relative',
-        height: '100vh',
-        background: '#000',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-      }}
+      className="relative h-screen bg-black flex items-center justify-center overflow-hidden"
     >
       {/* Background */}
       <div
-        style={{
-          position: 'absolute',
-          inset: '0',
-          background: 'linear-gradient(135deg, #0d1520 0%, #0a0f1a 50%, #050a10 100%)',
-        }}
+        className="absolute inset-0"
+        style={{ background: 'linear-gradient(135deg, #0d1520 0%, #0a0f1a 50%, #050a10 100%)' }}
       >
         <div
-          style={{
-            position: 'absolute',
-            inset: '0',
-            background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(30,50,80,0.3) 0%, transparent 70%)',
-          }}
+          className="absolute inset-0"
+          style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(30,50,80,0.3) 0%, transparent 70%)' }}
         />
         <div
-          style={{
-            position: 'absolute',
-            inset: '0',
-            background: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.005) 3px, rgba(255,255,255,0.005) 4px)',
-          }}
+          className="absolute inset-0"
+          style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.005) 3px, rgba(255,255,255,0.005) 4px)' }}
         />
       </div>
 
       {/* Bottom gradient */}
       <div
-        style={{
-          position: 'absolute',
-          bottom: '0',
-          left: '0',
-          right: '0',
-          height: '40%',
-          background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)',
-          zIndex: '2',
-          pointerEvents: 'none',
-        }}
+        className="absolute bottom-0 left-0 right-0 h-[40%] z-[2] pointer-events-none"
+        style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }}
       />
 
       {/* Play button */}
@@ -61,22 +36,7 @@ export default function VideoSection() {
         <button
           onClick={() => setPlaying(true)}
           aria-label="Play video"
-          style={{
-            position: 'relative',
-            zIndex: '3',
-            width: '88px',
-            height: '88px',
-            borderRadius: '50%',
-            background: 'var(--bg-glass)',
-            border: '1px solid var(--border-strong)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            transition: 'transform 0.2s, border-color 0.2s, box-shadow 0.2s',
-            cursor: 'pointer',
-          }}
+          className="relative z-[3] w-[88px] h-[88px] rounded-full bg-[rgba(17,17,17,0.80)] border border-border-strong flex items-center justify-center backdrop-blur-[12px] transition-[transform,border-color,box-shadow] duration-200 cursor-pointer"
           onMouseEnter={e => {
             e.currentTarget.style.transform = 'scale(1.08)'
             e.currentTarget.style.borderColor = 'var(--brand)'
@@ -88,7 +48,7 @@ export default function VideoSection() {
             e.currentTarget.style.boxShadow = 'none'
           }}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="white" style={{ marginLeft: '6px' }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white" className="ml-[6px]">
             <polygon points="6,3 20,12 6,21" />
           </svg>
         </button>
@@ -98,20 +58,7 @@ export default function VideoSection() {
         <button
           onClick={() => setPlaying(false)}
           aria-label="Pause video"
-          style={{
-            position: 'relative',
-            zIndex: '3',
-            width: '88px',
-            height: '88px',
-            borderRadius: '50%',
-            background: 'var(--bg-glass)',
-            border: '1px solid var(--brand)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backdropFilter: 'blur(12px)',
-            cursor: 'pointer',
-          }}
+          className="relative z-[3] w-[88px] h-[88px] rounded-full bg-[rgba(17,17,17,0.80)] border border-brand flex items-center justify-center backdrop-blur-[12px] cursor-pointer"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
             <rect x="6" y="4" width="4" height="16" />
@@ -121,58 +68,19 @@ export default function VideoSection() {
       )}
 
       {/* Bottom meta */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '40px',
-          left: '0',
-          right: '0',
-          zIndex: '4',
-          padding: '0 var(--page-pad)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-end',
-        }}
-      >
+      <div className="absolute bottom-10 left-0 right-0 z-[4] px-16 flex justify-between items-end">
         <div>
-          <span
-            style={{
-              fontSize: '12px',
-              fontWeight: '600',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: 'var(--brand)',
-            }}
-          >
+          <span className="text-[12px] font-semibold tracking-[0.1em] uppercase text-brand">
             Official Film
           </span>
-          <h3
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '28px',
-              fontWeight: '400',
-              color: 'var(--text-primary)',
-              marginTop: '6px',
-            }}
-          >
+          <h3 className="font-display text-[28px] font-normal text-text-primary mt-[6px]">
             A Life Above the City
           </h3>
         </div>
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <div className="flex gap-3 items-center">
           <button
             aria-label="Mute"
-            style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              background: 'rgba(255,255,255,0.08)',
-              border: '1px solid var(--border-strong)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--text-primary)',
-              cursor: 'pointer',
-            }}
+            className="w-11 h-11 rounded-full bg-[rgba(255,255,255,0.08)] border border-border-strong flex items-center justify-center text-text-primary cursor-pointer"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" />
@@ -182,18 +90,7 @@ export default function VideoSection() {
           </button>
           <button
             aria-label="Fullscreen"
-            style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              background: 'rgba(255,255,255,0.08)',
-              border: '1px solid var(--border-strong)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--text-primary)',
-              cursor: 'pointer',
-            }}
+            className="w-11 h-11 rounded-full bg-[rgba(255,255,255,0.08)] border border-border-strong flex items-center justify-center text-text-primary cursor-pointer"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polyline points="15,3 21,3 21,9" />

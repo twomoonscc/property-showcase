@@ -42,41 +42,16 @@ export default function GalleryLightbox({ items, currentIndex, onClose, onPrev, 
       role="dialog"
       aria-modal="true"
       aria-label="Image viewer"
-      style={{
-        position: 'fixed',
-        inset: '0',
-        zIndex: '9999',
-        background: 'rgba(0, 0, 0, 0.92)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
+      className="fixed inset-0 z-[9999] bg-[rgba(0,0,0,0.92)] flex items-center justify-center"
       onClick={onClose}
     >
       {/* Main image area */}
       <div
         onClick={(e) => e.stopPropagation()}
-        style={{
-          position: 'relative',
-          width: '90vw',
-          maxWidth: '1200px',
-          height: '80vh',
-          borderRadius: 'var(--radius-card)',
-          overflow: 'hidden',
-          background: gradient,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
+        className="relative w-[90vw] max-w-[1200px] h-[80vh] rounded-card overflow-hidden flex items-center justify-center"
+        style={{ background: gradient }}
       >
-        <span
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '14px',
-            letterSpacing: '0.1em',
-            color: 'var(--text-tertiary)',
-          }}
-        >
+        <span className="font-display text-[14px] tracking-[0.1em] text-text-tertiary">
           {item.label}
         </span>
 
@@ -85,22 +60,7 @@ export default function GalleryLightbox({ items, currentIndex, onClose, onPrev, 
           ref={closeRef}
           onClick={onClose}
           aria-label="Close"
-          style={{
-            position: 'absolute',
-            top: '16px',
-            right: '16px',
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-            background: 'rgba(0,0,0,0.5)',
-            border: '1px solid var(--border-strong)',
-            color: 'var(--text-primary)',
-            fontSize: '18px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
+          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[rgba(0,0,0,0.5)] border border-border-strong text-text-primary text-[18px] flex items-center justify-center cursor-pointer"
         >
           ✕
         </button>
@@ -109,23 +69,7 @@ export default function GalleryLightbox({ items, currentIndex, onClose, onPrev, 
         <button
           onClick={onPrev}
           aria-label="Previous"
-          style={{
-            position: 'absolute',
-            left: '16px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            width: '44px',
-            height: '44px',
-            borderRadius: '50%',
-            background: 'rgba(0,0,0,0.5)',
-            border: '1px solid var(--border-strong)',
-            color: 'var(--text-primary)',
-            fontSize: '20px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
+          className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[rgba(0,0,0,0.5)] border border-border-strong text-text-primary text-[20px] flex items-center justify-center cursor-pointer"
         >
           ‹
         </button>
@@ -134,39 +78,13 @@ export default function GalleryLightbox({ items, currentIndex, onClose, onPrev, 
         <button
           onClick={onNext}
           aria-label="Next"
-          style={{
-            position: 'absolute',
-            right: '16px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            width: '44px',
-            height: '44px',
-            borderRadius: '50%',
-            background: 'rgba(0,0,0,0.5)',
-            border: '1px solid var(--border-strong)',
-            color: 'var(--text-primary)',
-            fontSize: '20px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
+          className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[rgba(0,0,0,0.5)] border border-border-strong text-text-primary text-[20px] flex items-center justify-center cursor-pointer"
         >
           ›
         </button>
 
         {/* Counter */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '16px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            fontSize: '12px',
-            color: 'var(--text-secondary)',
-            fontFamily: 'var(--font-mono)',
-          }}
-        >
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[12px] text-text-secondary font-mono">
           {currentIndex + 1} / {items.length}
         </div>
       </div>

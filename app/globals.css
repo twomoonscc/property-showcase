@@ -20,6 +20,24 @@
   --color-status-reserved: #FBBF24;
   --color-status-sold: #EF4444;
   --color-whatsapp: #25D366;
+
+  /* Fonts */
+  --font-display: var(--font-cormorant, 'Cormorant Garamond', Georgia, serif);
+  --font-body: var(--font-inter, 'Inter', system-ui, sans-serif);
+  --font-mono: var(--font-jetbrains, 'JetBrains Mono', monospace);
+
+  /* Border radius */
+  --radius-DEFAULT: 8px;
+  --radius-card: 12px;
+  --radius-pill: 48px;
+
+  /* Animations */
+  --animate-fade-up: fadeUp 0.7s ease forwards;
+  --animate-ticker: tickerScroll 35s linear infinite;
+  --animate-pulse-ring: pulse-ring 1.5s ease-out infinite;
+  --animate-progress-pulse: progressPulse 2s ease-in-out infinite;
+  --animate-chat-slide-up: chatSlideUp 0.25s ease forwards;
+  --animate-scroll-drop: scrollDrop 2s ease-in-out infinite;
 }
 
 /* ─── CSS CUSTOM PROPERTIES ──────────────────────────────────── */
@@ -59,46 +77,48 @@
   --max-w:         1440px;
 }
 
-/* ─── RESET ──────────────────────────────────────────────────── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* ─── RESET & BASE ───────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-}
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
 
-body {
-  background: var(--bg-base);
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
+  body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
 
-img {
-  display: block;
-  max-width: 100%;
-}
+  img {
+    display: block;
+    max-width: 100%;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-family: inherit;
-}
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+  }
 
-input, textarea, select {
-  font-family: inherit;
+  input, textarea, select {
+    font-family: inherit;
+  }
 }
 
 /* ─── KEYFRAME ANIMATIONS ────────────────────────────────────── */
@@ -134,21 +154,27 @@ input, textarea, select {
 }
 
 /* ─── REVEAL UTILITY ─────────────────────────────────────────── */
-.reveal {
+@utility reveal {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-.reveal.visible {
+@utility reveal-visible {
   opacity: 1;
   transform: none;
 }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
+@utility reveal-delay-1 { transition-delay: 0.1s; }
+@utility reveal-delay-2 { transition-delay: 0.2s; }
+@utility reveal-delay-3 { transition-delay: 0.3s; }
+@utility reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Keep .reveal.visible for JS-driven visibility toggle in RevealWrapper */
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
 
 /* ─── SCROLLBAR ──────────────────────────────────────────────── */
 ::-webkit-scrollbar {

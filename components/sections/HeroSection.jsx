@@ -2,20 +2,12 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      style={{
-        position: 'relative',
-        height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-      }}
+      className="relative h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Background */}
       <div
+        className="absolute inset-0"
         style={{
-          position: 'absolute',
-          inset: '0',
           background: `
             linear-gradient(to top, #0A0A0A 0%, rgba(10,10,10,0.65) 35%, rgba(10,10,10,0.2) 65%, rgba(10,10,10,0.45) 100%),
             linear-gradient(135deg, #1a1610 0%, #0d1015 40%, #0a0d12 100%)
@@ -24,9 +16,8 @@ export default function HeroSection() {
       >
         {/* Radial glow overlays */}
         <div
+          className="absolute inset-0"
           style={{
-            position: 'absolute',
-            inset: '0',
             background: `
               radial-gradient(ellipse 60% 80% at 65% 40%, rgba(201,169,110,0.04) 0%, transparent 70%),
               radial-gradient(ellipse 30% 60% at 70% 60%, rgba(232,228,223,0.02) 0%, transparent 60%)
@@ -37,9 +28,8 @@ export default function HeroSection() {
 
       {/* Grid overlay */}
       <div
+        className="absolute inset-0"
         style={{
-          position: 'absolute',
-          inset: '0',
           backgroundImage: `
             linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)
@@ -50,100 +40,45 @@ export default function HeroSection() {
       />
 
       {/* Content */}
-      <div
-        style={{
-          position: 'relative',
-          zIndex: '2',
-          textAlign: 'center',
-          padding: '0 24px',
-          maxWidth: '960px',
-          marginTop: '40px',
-        }}
-      >
+      <div className="relative z-[2] text-center px-6 max-w-[960px] mt-10">
         <p
-          style={{
-            fontSize: '12px',
-            fontWeight: '600',
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            color: 'var(--brand)',
-            marginBottom: '28px',
-            animation: 'fadeUp 1s ease 0.2s both',
-          }}
+          className="text-[12px] font-semibold tracking-[0.18em] uppercase text-brand mb-7"
+          style={{ animation: 'fadeUp 1s ease 0.2s both' }}
         >
           A New Standard in Luxury Living
         </p>
 
         <h1
+          className="font-display font-light leading-none tracking-[-0.02em] text-text-primary mb-7"
           style={{
-            fontFamily: 'var(--font-display)',
             fontSize: 'clamp(48px, 8vw, 96px)',
-            fontWeight: '300',
-            lineHeight: '1.0',
-            letterSpacing: '-0.02em',
-            color: 'var(--text-primary)',
-            marginBottom: '28px',
             animation: 'fadeUp 1s ease 0.4s both',
           }}
         >
           AURA<br />
-          <em style={{ fontStyle: 'italic', color: 'var(--platinum)' }}>Residences</em>
+          <em className="italic text-platinum">Residences</em>
         </h1>
 
         <p
-          style={{
-            fontSize: '18px',
-            fontWeight: '400',
-            lineHeight: '1.7',
-            color: 'var(--text-secondary)',
-            maxWidth: '560px',
-            margin: '0 auto 48px',
-            animation: 'fadeUp 1s ease 0.6s both',
-          }}
+          className="text-[18px] font-normal leading-[1.7] text-text-secondary max-w-[560px] mx-auto mb-12"
+          style={{ animation: 'fadeUp 1s ease 0.6s both' }}
         >
           Forty-two singular residences poised above the city. Where architectural precision meets the art of living extraordinarily well.
         </p>
 
         <div
-          style={{
-            display: 'flex',
-            gap: '16px',
-            justifyContent: 'center',
-            alignItems: 'center',
-            animation: 'fadeUp 1s ease 0.8s both',
-          }}
+          className="flex gap-4 justify-center items-center"
+          style={{ animation: 'fadeUp 1s ease 0.8s both' }}
         >
           <a
             href="#calendar-section"
-            style={{
-              background: 'var(--brand)',
-              color: '#0A0A0A',
-              fontSize: '13px',
-              fontWeight: '600',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              padding: '16px 36px',
-              borderRadius: 'var(--radius-pill)',
-              transition: 'background 0.2s, transform 0.15s, box-shadow 0.2s',
-              textDecoration: 'none',
-            }}
+            className="bg-brand text-bg-base text-[13px] font-semibold tracking-[0.08em] uppercase px-9 py-4 rounded-pill transition-[background,transform,box-shadow] duration-200"
           >
             Book a Viewing
           </a>
           <a
             href="#render-section"
-            style={{
-              border: '1px solid var(--brand)',
-              color: 'var(--brand)',
-              fontSize: '13px',
-              fontWeight: '600',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              padding: '15px 36px',
-              borderRadius: 'var(--radius-pill)',
-              transition: 'background 0.2s, color 0.2s, transform 0.15s',
-              textDecoration: 'none',
-            }}
+            className="border border-brand text-brand text-[13px] font-semibold tracking-[0.08em] uppercase px-9 py-[15px] rounded-pill transition-[background,color,transform] duration-200"
           >
             Explore Residences
           </a>
@@ -152,49 +87,16 @@ export default function HeroSection() {
 
       {/* Scroll indicator */}
       <div
-        style={{
-          position: 'absolute',
-          bottom: '48px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '8px',
-          animation: 'fadeUp 1s ease 1.2s both',
-        }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        style={{ animation: 'fadeUp 1s ease 1.2s both' }}
       >
-        <span
-          style={{
-            fontSize: '11px',
-            fontWeight: '600',
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            color: 'var(--text-tertiary)',
-          }}
-        >
+        <span className="text-[11px] font-semibold tracking-[0.1em] uppercase text-text-tertiary">
           Scroll
         </span>
-        <div
-          style={{
-            width: '1px',
-            height: '48px',
-            background: 'var(--text-tertiary)',
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
+        <div className="w-px h-12 bg-text-tertiary relative overflow-hidden">
           <span
-            style={{
-              position: 'absolute',
-              top: '-100%',
-              left: '0',
-              width: '100%',
-              height: '100%',
-              background: 'var(--brand)',
-              animation: 'scrollDrop 1.8s ease-in-out infinite',
-              display: 'block',
-            }}
+            className="absolute top-[-100%] left-0 w-full h-full bg-brand block"
+            style={{ animation: 'scrollDrop 1.8s ease-in-out infinite' }}
           />
         </div>
       </div>

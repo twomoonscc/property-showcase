@@ -28,23 +28,17 @@ export default function GallerySection() {
   return (
     <section
       id="gallery"
-      style={{ padding: 'var(--section-pad) 0', background: 'var(--bg-base)' }}
+      className="py-24 bg-bg-base"
     >
       <div className="container">
-        <div style={{ marginBottom: '64px' }}>
+        <div className="mb-16">
           <RevealWrapper>
             <p className="eyebrow">The Residences</p>
           </RevealWrapper>
           <RevealWrapper delay={1}>
             <h2
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(32px, 4vw, 56px)',
-                fontWeight: '400',
-                lineHeight: '1.1',
-                color: 'var(--text-primary)',
-                marginTop: '16px',
-              }}
+              className="font-display font-normal leading-[1.1] text-text-primary mt-4"
+              style={{ fontSize: 'clamp(32px, 4vw, 56px)' }}
             >
               Curated Spaces,<br />Singular Views
             </h2>
@@ -53,62 +47,31 @@ export default function GallerySection() {
 
         <RevealWrapper>
           <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(12, 1fr)',
-              gap: '8px',
-              marginTop: '64px',
-            }}
+            className="grid gap-2 mt-16"
+            style={{ gridTemplateColumns: 'repeat(12, 1fr)' }}
           >
             {galleryItems.map((item, idx) => (
               <div
                 key={item.label}
                 onClick={() => setLightboxIndex(idx)}
+                className="overflow-hidden rounded-[4px] relative cursor-pointer bg-bg-elevated"
                 style={{
                   gridColumn: item.col,
                   gridRow: item.row,
                   height: item.height,
-                  overflow: 'hidden',
-                  borderRadius: '4px',
-                  position: 'relative',
-                  cursor: 'pointer',
-                  background: 'var(--bg-elevated)',
                 }}
               >
                 <div
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: item.gradient,
-                    position: 'relative',
-                  }}
+                  className="w-full h-full flex items-center justify-center relative"
+                  style={{ background: item.gradient }}
                 >
-                  <span
-                    style={{
-                      fontSize: '13px',
-                      letterSpacing: '0.1em',
-                      color: 'var(--text-tertiary)',
-                    }}
-                  >
+                  <span className="text-[13px] tracking-[0.1em] text-text-tertiary">
                     {item.label}
                   </span>
 
                   {/* Hover overlay */}
                   <div
-                    className="gallery-hover-overlay"
-                    style={{
-                      position: 'absolute',
-                      inset: '0',
-                      background: 'var(--overlay)',
-                      opacity: '0',
-                      transition: 'opacity 0.3s',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
+                    className="gallery-hover-overlay absolute inset-0 bg-[rgba(0,0,0,0.60)] opacity-0 transition-opacity duration-300 flex items-center justify-center"
                     onMouseEnter={e => { e.currentTarget.style.opacity = '1' }}
                     onMouseLeave={e => { e.currentTarget.style.opacity = '0' }}
                   >

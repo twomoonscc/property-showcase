@@ -19,6 +19,9 @@ const TIME_SLOTS = [
 
 const TODAY = new Date(2026, 2, 19) // 19 March 2026
 
+const inputClass = 'bg-bg-surface border border-border-default rounded-[8px] px-4 py-[14px] text-[15px] text-text-primary outline-none focus:border-brand focus:shadow-[0_0_0_3px_rgba(201,169,110,0.12)]'
+const labelClass = 'text-[12px] font-semibold tracking-[0.06em] uppercase text-text-secondary'
+
 export default function BookingSection() {
   const { year, month, goToPrev, goToNext } = useCalendar(2026, 2)
   const [selectedDay, setSelectedDay]   = useState(19)
@@ -33,42 +36,29 @@ export default function BookingSection() {
   return (
     <section
       id="calendar-section"
-      style={{ padding: 'var(--section-pad) 0', background: 'var(--bg-elevated)' }}
+      className="py-24 bg-bg-elevated"
     >
       <div className="container">
-        <div style={{ marginBottom: '64px' }}>
+        <div className="mb-16">
           <RevealWrapper>
             <p className="eyebrow">Experience AURA</p>
           </RevealWrapper>
           <RevealWrapper delay={1}>
             <h2
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(32px, 4vw, 56px)',
-                fontWeight: '400',
-                lineHeight: '1.1',
-                color: 'var(--text-primary)',
-                marginTop: '16px',
-              }}
+              className="font-display font-normal leading-[1.1] text-text-primary mt-4"
+              style={{ fontSize: 'clamp(32px, 4vw, 56px)' }}
             >
               Book a Private<br />Viewing
             </h2>
           </RevealWrapper>
           <RevealWrapper delay={2}>
-            <p style={{ color: 'var(--text-secondary)', marginTop: '16px', fontSize: '16px' }}>
+            <p className="text-text-secondary mt-4 text-[16px]">
               Our sales team will personally guide you through the residences and answer every question.
             </p>
           </RevealWrapper>
         </div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '64px',
-            alignItems: 'start',
-          }}
-        >
+        <div className="grid gap-16 items-start mt-16" style={{ gridTemplateColumns: '1fr 1fr' }}>
           {/* Left: calendar + time slots */}
           <RevealWrapper>
             <CalendarWidget
@@ -93,100 +83,48 @@ export default function BookingSection() {
           <RevealWrapper delay={2}>
             <form
               onSubmit={e => e.preventDefault()}
-              style={{ display: 'flex', flexDirection: 'column', gap: '20px', paddingTop: '8px' }}
+              className="flex flex-col gap-5 pt-2"
             >
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <label style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="James"
-                    style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius)', padding: '14px 16px', fontSize: '15px', color: 'var(--text-primary)', outline: 'none' }}
-                  />
+              <div className="grid gap-4" style={{ gridTemplateColumns: '1fr 1fr' }}>
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>First Name</label>
+                  <input type="text" placeholder="James" className={inputClass} />
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <label style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Cruickshank"
-                    style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius)', padding: '14px 16px', fontSize: '15px', color: 'var(--text-primary)', outline: 'none' }}
-                  />
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>Last Name</label>
+                  <input type="text" placeholder="Cruickshank" className={inputClass} />
                 </div>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  placeholder="james@example.com"
-                  style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius)', padding: '14px 16px', fontSize: '15px', color: 'var(--text-primary)', outline: 'none' }}
-                />
+              <div className="flex flex-col gap-2">
+                <label className={labelClass}>Email Address</label>
+                <input type="email" placeholder="james@example.com" className={inputClass} />
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  placeholder="+1 555 000 0000"
-                  style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius)', padding: '14px 16px', fontSize: '15px', color: 'var(--text-primary)', outline: 'none' }}
-                />
+              <div className="flex flex-col gap-2">
+                <label className={labelClass}>Phone Number</label>
+                <input type="tel" placeholder="+1 555 000 0000" className={inputClass} />
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
-                  Message (Optional)
-                </label>
+              <div className="flex flex-col gap-2">
+                <label className={labelClass}>Message (Optional)</label>
                 <textarea
                   rows={3}
                   placeholder="I'm interested in a 3-bedroom residence on a high floor…"
-                  style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius)', padding: '14px 16px', fontSize: '15px', color: 'var(--text-primary)', outline: 'none', resize: 'vertical' }}
+                  className={`${inputClass} resize-y`}
                 />
               </div>
 
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <div className="flex gap-3 flex-wrap">
                 <button
                   type="submit"
-                  style={{
-                    background: 'var(--brand)',
-                    color: '#0A0A0A',
-                    fontSize: '13px',
-                    fontWeight: '600',
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    padding: '16px 32px',
-                    borderRadius: 'var(--radius-pill)',
-                    cursor: 'pointer',
-                    border: 'none',
-                    transition: 'background 0.2s, transform 0.15s',
-                    fontFamily: 'var(--font-body)',
-                  }}
+                  className="bg-brand text-bg-base text-[13px] font-semibold tracking-[0.08em] uppercase px-8 py-4 rounded-pill cursor-pointer border-none transition-[background,transform] duration-200 font-body"
                 >
                   Confirm Viewing — {selectedSlot || '10:30 AM'}
                 </button>
                 <button
                   type="button"
-                  style={{
-                    border: '1px solid var(--border-default)',
-                    color: 'var(--text-secondary)',
-                    fontSize: '13px',
-                    fontWeight: '600',
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    padding: '15px 32px',
-                    borderRadius: 'var(--radius-pill)',
-                    cursor: 'pointer',
-                    background: 'none',
-                    fontFamily: 'var(--font-body)',
-                    transition: 'border-color 0.2s, color 0.2s',
-                  }}
+                  className="border border-border-default text-text-secondary text-[13px] font-semibold tracking-[0.08em] uppercase px-8 py-[15px] rounded-pill cursor-pointer bg-transparent font-body transition-[border-color,color] duration-200"
                 >
                   Set Reminder
                 </button>

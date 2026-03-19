@@ -40,72 +40,21 @@ export default function ChatbotWidget({ onClose }) {
 
   return (
     <div
-      style={{
-        position: 'fixed',
-        bottom: '100px',
-        right: '32px',
-        zIndex: '901',
-        width: '340px',
-        borderRadius: 'var(--radius-card)',
-        background: 'var(--bg-glass)',
-        border: '1px solid var(--border-default)',
-        backdropFilter: 'blur(24px) saturate(1.2)',
-        WebkitBackdropFilter: 'blur(24px) saturate(1.2)',
-        boxShadow: 'var(--shadow-modal)',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        animation: 'chatSlideUp 0.25s ease',
-      }}
+      className="fixed bottom-[88px] right-4 sm:bottom-[100px] sm:right-8 z-[901] w-[calc(100vw-32px)] sm:w-[340px] rounded-card bg-[rgba(17,17,17,0.80)] border border-border-default backdrop-blur-[24px] saturate-[1.2] shadow-[var(--shadow-modal)] overflow-hidden flex flex-col"
+      style={{ animation: 'chatSlideUp 0.25s ease' }}
     >
       {/* Header */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '16px 20px',
-          borderBottom: '1px solid var(--border-subtle)',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div
-            style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '50%',
-              background: 'var(--brand-muted)',
-              border: '1px solid var(--brand)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '16px',
-            }}
-          >
+      <div className="flex items-center justify-between p-[16px_20px] border-b border-border-subtle">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-full bg-[rgba(201,169,110,0.12)] border border-brand flex items-center justify-center text-[16px]">
             ✦
           </div>
           <div>
-            <div style={{ fontSize: '14px', fontWeight: '600', color: 'var(--text-primary)' }}>
+            <div className="text-[14px] font-semibold text-text-primary">
               {agentName}
             </div>
-            <div
-              style={{
-                fontSize: '12px',
-                color: 'var(--status-available)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '5px',
-              }}
-            >
-              <span
-                style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  background: 'var(--status-available)',
-                  display: 'inline-block',
-                }}
-              />
+            <div className="text-[12px] text-status-available flex items-center gap-[5px]">
+              <span className="w-1.5 h-1.5 rounded-full bg-status-available inline-block" />
               Online now
             </div>
           </div>
@@ -113,68 +62,29 @@ export default function ChatbotWidget({ onClose }) {
         <button
           onClick={onClose}
           aria-label="Close chat"
-          style={{
-            width: '28px',
-            height: '28px',
-            borderRadius: '50%',
-            border: '1px solid var(--border-default)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--text-secondary)',
-            fontSize: '16px',
-            cursor: 'pointer',
-            background: 'none',
-          }}
+          className="w-7 h-7 rounded-full border border-border-default flex items-center justify-center text-text-secondary text-[16px] cursor-pointer bg-transparent"
         >
           ✕
         </button>
       </div>
 
       {/* Messages */}
-      <div
-        style={{
-          height: '280px',
-          overflowY: 'auto',
-          padding: '20px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '16px',
-        }}
-      >
+      <div className="h-[280px] overflow-y-auto p-5 flex flex-col gap-4">
         {messages.map((msg) => (
           <div
             key={msg.id}
-            style={{
-              maxWidth: '80%',
-              padding: '12px 16px',
-              borderRadius: 'var(--radius)',
-              fontSize: '14px',
-              lineHeight: '1.5',
-              background: msg.role === 'bot' ? 'var(--bg-surface)' : 'var(--brand)',
-              color: msg.role === 'bot' ? 'var(--text-primary)' : '#0A0A0A',
-              fontWeight: msg.role === 'user' ? '500' : '400',
-              alignSelf: msg.role === 'bot' ? 'flex-start' : 'flex-end',
-              borderBottomLeftRadius: msg.role === 'bot' ? '2px' : 'var(--radius)',
-              borderBottomRightRadius: msg.role === 'user' ? '2px' : 'var(--radius)',
-            }}
+            className={[
+              'max-w-[80%] px-4 py-3 rounded-[8px] text-[14px] leading-[1.5]',
+              msg.role === 'bot'
+                ? 'bg-bg-surface text-text-primary font-normal self-start rounded-bl-[2px]'
+                : 'bg-brand text-[#0A0A0A] font-medium self-end rounded-br-[2px]',
+            ].join(' ')}
           >
             {msg.text}
           </div>
         ))}
         {isTyping && (
-          <div
-            style={{
-              maxWidth: '80%',
-              padding: '12px 16px',
-              borderRadius: 'var(--radius)',
-              fontSize: '14px',
-              background: 'var(--bg-surface)',
-              color: 'var(--text-secondary)',
-              alignSelf: 'flex-start',
-              borderBottomLeftRadius: '2px',
-            }}
-          >
+          <div className="max-w-[80%] px-4 py-3 rounded-[8px] rounded-bl-[2px] text-[14px] bg-bg-surface text-text-secondary self-start">
             …
           </div>
         )}
@@ -183,22 +93,12 @@ export default function ChatbotWidget({ onClose }) {
 
       {/* Suggestions */}
       {shownSuggestions.length > 0 && (
-        <div style={{ padding: '0 16px 12px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        <div className="p-[0_16px_12px] flex flex-wrap gap-2">
           {shownSuggestions.map((s) => (
             <button
               key={s}
               onClick={() => handleSuggestion(s)}
-              style={{
-                border: '1px solid var(--border-default)',
-                borderRadius: 'var(--radius-pill)',
-                padding: '6px 14px',
-                fontSize: '12px',
-                color: 'var(--text-secondary)',
-                cursor: 'pointer',
-                background: 'none',
-                whiteSpace: 'nowrap',
-                transition: 'border-color 0.2s, color 0.2s',
-              }}
+              className="border border-border-default rounded-pill px-[14px] py-[6px] text-[12px] text-text-secondary cursor-pointer bg-transparent whitespace-nowrap transition-[border-color,color] duration-200"
             >
               {s}
             </button>
@@ -207,49 +107,19 @@ export default function ChatbotWidget({ onClose }) {
       )}
 
       {/* Input row */}
-      <div
-        style={{
-          display: 'flex',
-          gap: '8px',
-          padding: '12px 16px',
-          borderTop: '1px solid var(--border-subtle)',
-        }}
-      >
+      <div className="flex gap-2 p-[12px_16px] border-t border-border-subtle">
         <input
           ref={inputRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Ask anything about AURA…"
-          style={{
-            flex: '1',
-            background: 'var(--bg-surface)',
-            border: '1px solid var(--border-default)',
-            borderRadius: 'var(--radius-pill)',
-            padding: '10px 16px',
-            fontSize: '14px',
-            color: 'var(--text-primary)',
-            outline: 'none',
-          }}
+          className="flex-1 bg-bg-surface border border-border-default rounded-pill px-4 py-[10px] text-[14px] text-text-primary outline-none focus:border-brand"
         />
         <button
           onClick={handleSend}
           aria-label="Send"
-          style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '50%',
-            background: 'var(--brand)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#0A0A0A',
-            fontSize: '16px',
-            flexShrink: '0',
-            cursor: 'pointer',
-            border: 'none',
-            transition: 'background 0.2s',
-          }}
+          className="w-9 h-9 rounded-full bg-brand flex items-center justify-center text-[#0A0A0A] text-[16px] shrink-0 cursor-pointer border-none transition-colors duration-200"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <line x1="22" y1="2" x2="11" y2="13" />

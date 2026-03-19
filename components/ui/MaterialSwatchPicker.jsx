@@ -12,44 +12,23 @@ const gradientMap = {
  */
 export default function MaterialSwatchPicker({ swatches, selected, onSelect }) {
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: '8px',
-      }}
-    >
+    <div className="grid grid-cols-4 gap-2">
       {swatches.map((swatch) => {
         const isActive = selected === swatch.id
         return (
-          <div key={swatch.id} style={{ position: 'relative', paddingBottom: '24px' }}>
+          <div key={swatch.id} className="relative pb-6">
             <button
               onClick={() => onSelect(swatch.id)}
               title={swatch.title}
+              className="aspect-square rounded-[6px] cursor-pointer w-full transition-[border-color,transform] duration-200"
               style={{
-                aspectRatio: '1',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                width: '100%',
                 border: isActive ? '2px solid var(--brand)' : '2px solid transparent',
                 background: swatch.gradient || gradientMap[swatch.name] || 'var(--bg-surface)',
-                transition: 'border-color 0.2s, transform 0.15s',
-                transform: 'none',
               }}
               onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)' }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'none' }}
             />
-            <span
-              style={{
-                position: 'absolute',
-                bottom: '4px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                fontSize: '10px',
-                color: 'var(--text-secondary)',
-                whiteSpace: 'nowrap',
-              }}
-            >
+            <span className="absolute bottom-1 left-1/2 -translate-x-1/2 text-[10px] text-text-secondary whitespace-nowrap">
               {swatch.name}
             </span>
           </div>

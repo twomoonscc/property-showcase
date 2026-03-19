@@ -31,37 +31,24 @@ export default function InteractiveRenderSection() {
   return (
     <section
       id="render-section"
-      style={{
-        height: '100vh',
-        background: 'var(--bg-base)',
-        position: 'relative',
-        overflow: 'hidden',
-        display: 'flex',
-        alignItems: 'stretch',
-      }}
+      className="h-screen bg-bg-base relative overflow-hidden flex items-stretch"
     >
       {/* Render canvas */}
       <div
-        style={{
-          flex: '1',
-          position: 'relative',
-          background: 'radial-gradient(ellipse 70% 80% at 50% 60%, rgba(20,30,50,0.8) 0%, #050810 100%)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
+        className="flex-1 relative flex items-center justify-center"
+        style={{ background: 'radial-gradient(ellipse 70% 80% at 50% 60%, rgba(20,30,50,0.8) 0%, #050810 100%)' }}
       >
         {/* Wireframe building */}
-        <div style={{ position: 'relative', width: '320px', height: '480px' }}>
+        <div className="relative w-[320px] h-[480px]">
           {/* Faces */}
-          <div style={{ position: 'absolute', width: '200px', height: '400px', bottom: '0', left: '60px', border: '1px solid rgba(201,169,110,0.3)' }} />
-          <div style={{ position: 'absolute', width: '80px', height: '360px', bottom: '0', left: '240px', borderTop: '1px solid rgba(201,169,110,0.3)', borderRight: '1px solid rgba(201,169,110,0.3)', borderBottom: '1px solid rgba(201,169,110,0.3)', transform: 'skewY(-5deg)', transformOrigin: 'bottom left' }} />
-          <div style={{ position: 'absolute', width: '200px', height: '60px', bottom: '400px', left: '60px', borderTop: '1px solid rgba(201,169,110,0.3)', borderLeft: '1px solid rgba(201,169,110,0.3)', borderRight: '1px solid rgba(201,169,110,0.3)', transform: 'skewX(-20deg)', transformOrigin: 'bottom left' }} />
+          <div className="absolute w-[200px] h-[400px] bottom-0 left-[60px] border border-[rgba(201,169,110,0.3)]" />
+          <div className="absolute w-[80px] h-[360px] bottom-0 left-[240px] border-t border-r border-b border-[rgba(201,169,110,0.3)] -skew-y-[5deg] origin-bottom-left" />
+          <div className="absolute w-[200px] h-[60px] bottom-[400px] left-[60px] border-t border-l border-r border-[rgba(201,169,110,0.3)] -skew-x-[20deg] origin-bottom-left" />
           {/* Lines */}
-          <div style={{ position: 'absolute', width: '200px', height: '1px', left: '60px', bottom: '200px', background: 'rgba(201,169,110,0.15)' }} />
-          <div style={{ position: 'absolute', width: '200px', height: '1px', left: '60px', bottom: '300px', background: 'rgba(201,169,110,0.15)' }} />
-          <div style={{ position: 'absolute', width: '1px', height: '400px', left: '127px', bottom: '0', background: 'rgba(201,169,110,0.15)' }} />
-          <div style={{ position: 'absolute', width: '1px', height: '400px', left: '194px', bottom: '0', background: 'rgba(201,169,110,0.15)' }} />
+          <div className="absolute w-[200px] h-px left-[60px] bottom-[200px] bg-[rgba(201,169,110,0.15)]" />
+          <div className="absolute w-[200px] h-px left-[60px] bottom-[300px] bg-[rgba(201,169,110,0.15)]" />
+          <div className="absolute w-px h-[400px] left-[127px] bottom-0 bg-[rgba(201,169,110,0.15)]" />
+          <div className="absolute w-px h-[400px] left-[194px] bottom-0 bg-[rgba(201,169,110,0.15)]" />
 
           {/* Hotspots */}
           {hotspots.map(hs => (
@@ -69,63 +56,27 @@ export default function InteractiveRenderSection() {
               key={hs.id}
               onMouseEnter={() => setHoveredHotspot(hs.id)}
               onMouseLeave={() => setHoveredHotspot(null)}
+              className="absolute w-7 h-7 rounded-full border-2 border-brand bg-[rgba(201,169,110,0.12)] cursor-pointer flex items-center justify-center -translate-x-1/2 -translate-y-1/2 transition-[transform,box-shadow] duration-200"
               style={{
-                position: 'absolute',
-                width: '28px',
-                height: '28px',
-                borderRadius: '50%',
-                border: '2px solid var(--brand)',
-                background: 'var(--brand-muted)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
                 top: hs.top,
                 left: hs.left,
-                transform: 'translate(-50%, -50%)',
-                transition: 'transform 0.2s, box-shadow 0.2s',
                 boxShadow: hoveredHotspot === hs.id ? '0 0 16px rgba(201,169,110,0.4)' : 'none',
                 scale: hoveredHotspot === hs.id ? '1.2' : '1',
               }}
             >
               {/* Pulse ring */}
               <span
-                style={{
-                  position: 'absolute',
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: '50%',
-                  border: '2px solid var(--brand)',
-                  animation: 'pulse-ring 2s ease-out infinite',
-                  opacity: '0.5',
-                  display: 'block',
-                }}
+                className="absolute w-full h-full rounded-full border-2 border-brand opacity-50 block"
+                style={{ animation: 'pulse-ring 2s ease-out infinite' }}
               />
 
               {/* Tooltip */}
               {hoveredHotspot === hs.id && (
                 <div
-                  style={{
-                    position: 'absolute',
-                    background: 'var(--bg-glass)',
-                    border: '1px solid var(--border-default)',
-                    borderRadius: 'var(--radius)',
-                    padding: '12px 16px',
-                    width: '180px',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
-                    fontSize: '13px',
-                    color: 'var(--text-primary)',
-                    top: '-60px',
-                    left: '50%',
-                    marginLeft: '-90px',
-                    whiteSpace: 'nowrap',
-                    pointerEvents: 'none',
-                    zIndex: '10',
-                  }}
+                  className="absolute bg-[rgba(17,17,17,0.80)] border border-border-default rounded-[8px] p-[12px_16px] w-[180px] backdrop-blur-[12px] text-[13px] text-text-primary top-[-60px] left-1/2 -ml-[90px] whitespace-nowrap pointer-events-none z-10"
                 >
-                  <span style={{ fontWeight: '600', display: 'block', marginBottom: '2px' }}>{hs.label}</span>
-                  <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{hs.sub}</span>
+                  <span className="font-semibold block mb-[2px]">{hs.label}</span>
+                  <span className="text-[12px] text-text-secondary">{hs.sub}</span>
                 </div>
               )}
             </div>
@@ -133,52 +84,25 @@ export default function InteractiveRenderSection() {
         </div>
 
         {/* Instruction hint */}
-        <div style={{ position: 'absolute', bottom: '32px', left: '0', right: '0', textAlign: 'center' }}>
-          <p style={{ fontSize: '12px', color: 'var(--text-tertiary)', letterSpacing: '0.06em' }}>
+        <div className="absolute bottom-8 left-0 right-0 text-center">
+          <p className="text-[12px] text-text-tertiary tracking-[0.06em]">
             Click &amp; drag to orbit · Scroll to zoom · Hover pins for details
           </p>
         </div>
       </div>
 
       {/* Controls panel */}
-      <div
-        style={{
-          width: '280px',
-          background: 'var(--bg-elevated)',
-          borderLeft: '1px solid var(--border-subtle)',
-          padding: '40px 32px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '36px',
-          overflowY: 'auto',
-        }}
-      >
+      <div className="w-[280px] bg-bg-elevated border-l border-border-subtle p-[40px_32px] flex flex-col gap-9 overflow-y-auto">
         <div>
-          <p className="eyebrow" style={{ marginBottom: '12px' }}>Interactive Model</p>
-          <h3
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '22px',
-              fontWeight: '400',
-              color: 'var(--text-primary)',
-            }}
-          >
+          <p className="eyebrow mb-3">Interactive Model</p>
+          <h3 className="font-display text-[22px] font-normal text-text-primary">
             Explore Every<br />Detail
           </h3>
         </div>
 
         {/* Toggles */}
         <div>
-          <div
-            style={{
-              fontSize: '11px',
-              fontWeight: '600',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: 'var(--text-secondary)',
-              marginBottom: '14px',
-            }}
-          >
+          <div className="text-[11px] font-semibold tracking-[0.1em] uppercase text-text-secondary mb-[14px]">
             Virtual Staging
           </div>
           {toggles.map(t => (
@@ -188,16 +112,7 @@ export default function InteractiveRenderSection() {
 
         {/* Material swatches */}
         <div>
-          <div
-            style={{
-              fontSize: '11px',
-              fontWeight: '600',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: 'var(--text-secondary)',
-              marginBottom: '14px',
-            }}
-          >
+          <div className="text-[11px] font-semibold tracking-[0.1em] uppercase text-text-secondary mb-[14px]">
             Floor Finish
           </div>
           <MaterialSwatchPicker
@@ -209,16 +124,7 @@ export default function InteractiveRenderSection() {
 
         {/* View Level slider */}
         <div>
-          <div
-            style={{
-              fontSize: '11px',
-              fontWeight: '600',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: 'var(--text-secondary)',
-              marginBottom: '14px',
-            }}
-          >
+          <div className="text-[11px] font-semibold tracking-[0.1em] uppercase text-text-secondary mb-[14px]">
             View Level
           </div>
           <input
@@ -227,14 +133,14 @@ export default function InteractiveRenderSection() {
             max={28}
             value={viewLevel}
             onChange={e => setViewLevel(Number(e.target.value))}
-            style={{ width: '100%', accentColor: 'var(--brand)' }}
+            className="w-full accent-brand"
           />
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px' }}>
-            <span style={{ fontSize: '11px', color: 'var(--text-tertiary)' }}>Level 1</span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--brand)' }}>
+          <div className="flex justify-between mt-[6px]">
+            <span className="text-[11px] text-text-tertiary">Level 1</span>
+            <span className="font-mono text-[13px] text-brand">
               Level {viewLevel}
             </span>
-            <span style={{ fontSize: '11px', color: 'var(--text-tertiary)' }}>Level 28</span>
+            <span className="text-[11px] text-text-tertiary">Level 28</span>
           </div>
         </div>
       </div>

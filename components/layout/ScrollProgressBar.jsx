@@ -8,18 +8,8 @@ export default function ScrollProgressBar() {
   return (
     <div
       aria-hidden="true"
-      style={{
-        position: 'fixed',
-        top: '0',
-        left: '0',
-        height: '3px',
-        width: `${progress}%`,
-        zIndex: '9999',
-        background: 'linear-gradient(90deg, var(--brand), var(--brand-hover))',
-        boxShadow: '0 0 8px rgba(201,169,110,0.5)',
-        transition: 'width 0.05s linear',
-        pointerEvents: 'none',
-      }}
+      className="fixed top-0 left-0 h-[3px] z-[9999] bg-[linear-gradient(90deg,var(--brand),var(--brand-hover))] shadow-[0_0_8px_rgba(201,169,110,0.5)] transition-[width] duration-[50ms] ease-linear pointer-events-none"
+      style={{ width: `${progress}%` }}
     />
   )
 }

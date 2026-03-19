@@ -1,53 +1,25 @@
 /**
  * Polymorphic button/link component.
- * @param {{ variant?: 'primary' | 'outline', href?: string, children: React.ReactNode, className?: string, style?: React.CSSProperties, onClick?: () => void, type?: string }} props
+ * @param {{ variant?: 'primary' | 'outline', href?: string, children: React.ReactNode, className?: string, onClick?: () => void, type?: string }} props
  */
-export default function Button({ variant = 'primary', href, children, className = '', style = {}, onClick, type = 'button', ...rest }) {
-  const base = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '13px',
-    fontWeight: '600',
-    letterSpacing: '0.08em',
-    textTransform: 'uppercase',
-    borderRadius: 'var(--radius-pill)',
-    padding: '16px 36px',
-    transition: 'background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    fontFamily: 'var(--font-body)',
-    border: 'none',
-  }
+export default function Button({ variant = 'primary', href, children, className = '', onClick, type = 'button', ...rest }) {
+  const base = 'inline-flex items-center justify-center text-[13px] font-semibold tracking-[0.08em] uppercase rounded-pill px-9 py-4 transition-[background,color,transform,box-shadow] duration-200 cursor-pointer font-body border-none'
 
-  const primaryStyle = {
-    ...base,
-    background: 'var(--brand)',
-    color: '#0A0A0A',
-    ...style,
-  }
+  const primaryClass = `${base} bg-brand text-bg-base`
+  const outlineClass = `${base} bg-transparent border border-brand text-brand py-[15px]`
 
-  const outlineStyle = {
-    ...base,
-    background: 'transparent',
-    border: '1px solid var(--brand)',
-    color: 'var(--brand)',
-    padding: '15px 36px',
-    ...style,
-  }
-
-  const mergedStyle = variant === 'primary' ? primaryStyle : outlineStyle
+  const merged = `${variant === 'primary' ? primaryClass : outlineClass} ${className}`
 
   if (href) {
     return (
-      <a href={href} style={mergedStyle} className={className} {...rest}>
+      <a href={href} className={merged} {...rest}>
         {children}
       </a>
     )
   }
 
   return (
-    <button type={type} onClick={onClick} style={mergedStyle} className={className} {...rest}>
+    <button type={type} onClick={onClick} className={merged} {...rest}>
       {children}
     </button>
   )

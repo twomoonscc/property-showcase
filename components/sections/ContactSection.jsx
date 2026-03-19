@@ -29,83 +29,54 @@ const channels = [
   },
 ]
 
+const inputClass = 'bg-bg-surface border border-border-default rounded-[8px] px-4 py-[14px] text-[15px] text-text-primary outline-none focus:border-brand focus:shadow-[0_0_0_3px_rgba(201,169,110,0.12)]'
+const labelClass = 'text-[12px] font-semibold tracking-[0.06em] uppercase text-text-secondary'
+
 export default function ContactSection() {
   return (
     <section
       id="contact"
-      style={{ padding: 'var(--section-pad) 0', background: 'var(--bg-base)' }}
+      className="py-24 bg-bg-base"
     >
       <div className="container">
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '96px',
-            marginTop: '0',
-          }}
-        >
+        <div className="grid gap-24 mt-16" style={{ gridTemplateColumns: '1fr 1fr' }}>
           {/* Left: info + channels */}
           <RevealWrapper>
             <p className="eyebrow">Get in Touch</p>
             <h2
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(28px, 3vw, 44px)',
-                fontWeight: '400',
-                lineHeight: '1.2',
-                margin: '16px 0 24px',
-              }}
+              className="font-display font-normal leading-[1.2] my-4 mb-6"
+              style={{ fontSize: 'clamp(28px, 3vw, 44px)' }}
             >
               We're here to answer every question
             </h2>
-            <p style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '40px' }}>
+            <p className="text-[16px] text-text-secondary leading-[1.7] mb-10">
               Our dedicated sales team is available seven days a week. Whether you have a question about a specific residence, the construction timeline, or the surrounding neighbourhood, we're ready to help.
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="flex flex-col gap-4">
               {channels.map(ch => (
                 <a
                   key={ch.key}
                   href={ch.href}
                   target={ch.key === 'whatsapp' ? '_blank' : undefined}
                   rel={ch.key === 'whatsapp' ? 'noopener noreferrer' : undefined}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '16px',
-                    padding: '16px 20px',
-                    background: 'var(--bg-elevated)',
-                    borderRadius: 'var(--radius-card)',
-                    border: '1px solid var(--border-subtle)',
-                    transition: 'border-color 0.2s',
-                    cursor: 'pointer',
-                    textDecoration: 'none',
-                  }}
+                  className="flex items-center gap-4 p-[16px_20px] bg-bg-elevated rounded-card border border-border-subtle transition-[border-color] duration-200 cursor-pointer"
                 >
                   <div
-                    style={{
-                      width: '44px',
-                      height: '44px',
-                      borderRadius: '10px',
-                      background: ch.iconBg,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '20px',
-                      flexShrink: '0',
-                    }}
+                    className="w-11 h-11 rounded-[10px] flex items-center justify-center text-[20px] shrink-0"
+                    style={{ background: ch.iconBg }}
                   >
                     {ch.icon}
                   </div>
-                  <div style={{ flex: '1' }}>
-                    <div style={{ fontSize: '14px', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '2px' }}>
+                  <div className="flex-1">
+                    <div className="text-[14px] font-semibold text-text-primary mb-[2px]">
                       {ch.name}
                     </div>
-                    <div style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+                    <div className="text-[13px] text-text-secondary">
                       {ch.detail}
                     </div>
                   </div>
-                  <span style={{ color: 'var(--text-tertiary)', fontSize: '18px' }}>→</span>
+                  <span className="text-text-tertiary text-[18px]">→</span>
                 </a>
               ))}
             </div>
@@ -115,72 +86,38 @@ export default function ContactSection() {
           <RevealWrapper delay={2}>
             <form
               onSubmit={e => e.preventDefault()}
-              style={{ display: 'flex', flexDirection: 'column', gap: '20px', paddingTop: '0' }}
+              className="flex flex-col gap-5"
             >
-              <p className="eyebrow" style={{ marginBottom: '16px' }}>Send a Message</p>
+              <p className="eyebrow mb-4">Send a Message</p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <label style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius)', padding: '14px 16px', fontSize: '15px', color: 'var(--text-primary)', outline: 'none' }}
-                  />
+              <div className="grid gap-4" style={{ gridTemplateColumns: '1fr 1fr' }}>
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>First Name</label>
+                  <input type="text" placeholder="Your name" className={inputClass} />
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <label style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Your surname"
-                    style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius)', padding: '14px 16px', fontSize: '15px', color: 'var(--text-primary)', outline: 'none' }}
-                  />
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>Last Name</label>
+                  <input type="text" placeholder="Your surname" className={inputClass} />
                 </div>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
-                  Email
-                </label>
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius)', padding: '14px 16px', fontSize: '15px', color: 'var(--text-primary)', outline: 'none' }}
-                />
+              <div className="flex flex-col gap-2">
+                <label className={labelClass}>Email</label>
+                <input type="email" placeholder="your@email.com" className={inputClass} />
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
-                  Message
-                </label>
+              <div className="flex flex-col gap-2">
+                <label className={labelClass}>Message</label>
                 <textarea
                   rows={4}
                   placeholder="Tell us what you're looking for…"
-                  style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius)', padding: '14px 16px', fontSize: '15px', color: 'var(--text-primary)', outline: 'none', resize: 'vertical' }}
+                  className={`${inputClass} resize-y`}
                 />
               </div>
 
               <button
                 type="submit"
-                style={{
-                  width: '100%',
-                  background: 'var(--brand)',
-                  color: '#0A0A0A',
-                  fontSize: '13px',
-                  fontWeight: '600',
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                  padding: '16px 32px',
-                  borderRadius: 'var(--radius-pill)',
-                  cursor: 'pointer',
-                  border: 'none',
-                  transition: 'background 0.2s, transform 0.15s',
-                  fontFamily: 'var(--font-body)',
-                }}
+                className="w-full bg-brand text-bg-base text-[13px] font-semibold tracking-[0.08em] uppercase px-8 py-4 rounded-pill cursor-pointer border-none transition-[background,transform] duration-200 font-body"
               >
                 Send Message
               </button>

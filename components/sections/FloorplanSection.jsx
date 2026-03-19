@@ -20,23 +20,17 @@ export default function FloorplanSection() {
   return (
     <section
       id="floorplan"
-      style={{ padding: 'var(--section-pad) 0', background: 'var(--bg-elevated)' }}
+      className="py-24 bg-bg-elevated"
     >
       <div className="container">
-        <div style={{ marginBottom: '64px' }}>
+        <div className="mb-16">
           <RevealWrapper>
             <p className="eyebrow">Availability</p>
           </RevealWrapper>
           <RevealWrapper delay={1}>
             <h2
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(32px, 4vw, 56px)',
-                fontWeight: '400',
-                lineHeight: '1.1',
-                color: 'var(--text-primary)',
-                marginTop: '16px',
-              }}
+              className="font-display font-normal leading-[1.1] text-text-primary mt-4"
+              style={{ fontSize: 'clamp(32px, 4vw, 56px)' }}
             >
               Select Your<br />Residence
             </h2>
@@ -45,60 +39,38 @@ export default function FloorplanSection() {
 
         {/* Legend */}
         <RevealWrapper delay={2}>
-          <div style={{ display: 'flex', gap: '24px', marginBottom: '32px', flexWrap: 'wrap' }}>
+          <div className="flex gap-6 mb-6 flex-wrap">
             {[
               { status: 'available', label: 'Available' },
               { status: 'reserved',  label: 'Reserved'  },
               { status: 'sold',      label: 'Sold'      },
             ].map(item => (
-              <div key={item.status} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '2px', background: statusColor(item.status), flexShrink: '0' }} />
+              <div
+                key={item.status}
+                className="flex items-center gap-2 text-[12px] font-semibold tracking-[0.06em] uppercase text-text-secondary"
+              >
+                <div
+                  className="w-3 h-3 rounded-[2px] shrink-0"
+                  style={{ background: statusColor(item.status) }}
+                />
                 {item.label}
               </div>
             ))}
           </div>
         </RevealWrapper>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '32px', alignItems: 'start' }}>
+        <div className="grid gap-8 items-start mt-16" style={{ gridTemplateColumns: '1fr 320px' }}>
           {/* Grid canvas */}
           <RevealWrapper>
-            <div
-              style={{
-                background: 'var(--bg-surface)',
-                borderRadius: 'var(--radius-card)',
-                border: '1px solid var(--border-subtle)',
-                padding: '32px',
-                minHeight: '500px',
-                position: 'relative',
-              }}
-            >
-              <div
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  maxWidth: '480px',
-                  margin: '0 auto',
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(4, 1fr)',
-                  gap: '4px',
-                }}
-              >
+            <div className="bg-bg-surface rounded-card border border-border-subtle p-8 min-h-[500px] relative">
+              <div className="relative w-full max-w-[480px] mx-auto grid gap-1" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
                 {displayUnits.map(unit => (
                   <button
                     key={unit.id}
                     onClick={() => setSelectedUnit(unit)}
                     title={`Unit ${unit.id}`}
+                    className="aspect-square rounded-[4px] cursor-pointer flex items-center justify-center font-mono text-[11px] font-normal transition-[transform,box-shadow] duration-150 outline-none"
                     style={{
-                      aspectRatio: '1',
-                      borderRadius: '4px',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '11px',
-                      fontWeight: '400',
-                      transition: 'transform 0.15s, box-shadow 0.15s',
                       border: selectedUnit?.id === unit.id ? '2px solid var(--brand)' : '1px solid transparent',
                       background: unit.status === 'available'
                         ? 'rgba(74,222,128,0.12)'
@@ -106,7 +78,6 @@ export default function FloorplanSection() {
                         ? 'rgba(251,191,36,0.1)'
                         : 'rgba(239,68,68,0.12)',
                       color: statusColor(unit.status),
-                      outline: 'none',
                     }}
                   >
                     {unit.id}
@@ -118,46 +89,18 @@ export default function FloorplanSection() {
 
           {/* Detail panel */}
           <RevealWrapper delay={2}>
-            <div
-              style={{
-                background: 'var(--bg-surface)',
-                borderRadius: 'var(--radius-card)',
-                border: '1px solid var(--border-subtle)',
-                padding: '32px',
-              }}
-            >
-              <p className="eyebrow" style={{ marginBottom: '8px' }}>Selected Unit</p>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '24px',
-                  fontWeight: '400',
-                  marginBottom: '4px',
-                }}
-              >
+            <div className="bg-bg-surface rounded-card border border-border-subtle p-8">
+              <p className="eyebrow mb-2">Selected Unit</p>
+              <h3 className="font-display text-[24px] font-normal mb-1">
                 Unit {selectedUnit?.id}
               </h3>
               <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  fontSize: '11px',
-                  fontWeight: '600',
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                  color: statusColor(selectedUnit?.status),
-                  marginBottom: '24px',
-                }}
+                className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.08em] uppercase mb-6"
+                style={{ color: statusColor(selectedUnit?.status) }}
               >
                 <span
-                  style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    background: statusColor(selectedUnit?.status),
-                    display: 'inline-block',
-                  }}
+                  className="w-2 h-2 rounded-full inline-block"
+                  style={{ background: statusColor(selectedUnit?.status) }}
                 />
                 {selectedUnit?.status?.charAt(0).toUpperCase()}{selectedUnit?.status?.slice(1)}
               </div>
@@ -171,36 +114,16 @@ export default function FloorplanSection() {
               ].map(row => (
                 <div
                   key={row.label}
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    padding: '12px 0',
-                    borderBottom: '1px solid var(--border-subtle)',
-                  }}
+                  className="flex justify-between py-3 border-b border-border-subtle"
                 >
-                  <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{row.label}</span>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-primary)' }}>{row.value}</span>
+                  <span className="text-[12px] text-text-secondary">{row.label}</span>
+                  <span className="font-mono text-[14px] text-text-primary">{row.value}</span>
                 </div>
               ))}
 
               <a
                 href="#calendar-section"
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  textAlign: 'center',
-                  background: 'var(--brand)',
-                  color: '#0A0A0A',
-                  fontSize: '12px',
-                  fontWeight: '600',
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                  padding: '14px',
-                  borderRadius: 'var(--radius-pill)',
-                  marginTop: '28px',
-                  transition: 'background 0.2s',
-                  textDecoration: 'none',
-                }}
+                className="block w-full text-center bg-brand text-bg-base text-[12px] font-semibold tracking-[0.08em] uppercase py-[14px] rounded-pill mt-7 transition-colors duration-200"
               >
                 Enquire About This Unit
               </a>

@@ -12,21 +12,16 @@ export default function MapSection() {
   return (
     <section
       id="map-section"
-      style={{ height: '80vh', position: 'relative', overflow: 'hidden', background: '#050810' }}
+      className="h-[80vh] relative overflow-hidden bg-[#050810]"
     >
       <div
-        style={{
-          width: '100%',
-          height: '100%',
-          position: 'relative',
-          background: 'radial-gradient(ellipse 120% 120% at 50% 50%, #0a1020 0%, #050810 100%)',
-        }}
+        className="w-full h-full relative"
+        style={{ background: 'radial-gradient(ellipse 120% 120% at 50% 50%, #0a1020 0%, #050810 100%)' }}
       >
         {/* Map grid */}
         <div
+          className="absolute inset-0"
           style={{
-            position: 'absolute',
-            inset: '0',
             backgroundImage: `
               linear-gradient(rgba(201,169,110,0.04) 1px, transparent 1px),
               linear-gradient(90deg, rgba(201,169,110,0.04) 1px, transparent 1px)
@@ -35,9 +30,8 @@ export default function MapSection() {
           }}
         >
           <div
+            className="absolute inset-0"
             style={{
-              position: 'absolute',
-              inset: '0',
               backgroundImage: `
                 linear-gradient(rgba(201,169,110,0.02) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(201,169,110,0.02) 1px, transparent 1px)
@@ -48,69 +42,32 @@ export default function MapSection() {
         </div>
 
         {/* Roads */}
-        <div style={{ position: 'absolute', top: '35%', left: '0', right: '0', height: '2px', background: 'rgba(255,255,255,0.05)' }} />
-        <div style={{ position: 'absolute', top: '60%', left: '0', right: '0', height: '1px', background: 'rgba(255,255,255,0.05)' }} />
-        <div style={{ position: 'absolute', left: '30%', top: '0', bottom: '0', width: '2px', background: 'rgba(255,255,255,0.05)' }} />
-        <div style={{ position: 'absolute', left: '65%', top: '0', bottom: '0', width: '1px', background: 'rgba(255,255,255,0.05)' }} />
-        <div style={{ position: 'absolute', top: '20%', left: '0', right: '0', height: '2px', transform: 'rotate(-8deg)', background: 'rgba(255,255,255,0.04)' }} />
+        <div className="absolute top-[35%] left-0 right-0 h-[2px] bg-[rgba(255,255,255,0.05)]" />
+        <div className="absolute top-[60%] left-0 right-0 h-px bg-[rgba(255,255,255,0.05)]" />
+        <div className="absolute left-[30%] top-0 bottom-0 w-[2px] bg-[rgba(255,255,255,0.05)]" />
+        <div className="absolute left-[65%] top-0 bottom-0 w-px bg-[rgba(255,255,255,0.05)]" />
+        <div className="absolute top-[20%] left-0 right-0 h-[2px] rotate-[-8deg] bg-[rgba(255,255,255,0.04)]" />
 
         {/* Main pin */}
         <div
-          style={{
-            position: 'absolute',
-            top: mainPin.top,
-            left: mainPin.left,
-            transform: 'translate(-50%, -50%)',
-            cursor: 'pointer',
-          }}
+          className="absolute cursor-pointer -translate-x-1/2 -translate-y-1/2"
+          style={{ top: mainPin.top, left: mainPin.left }}
         >
           <div
+            className="w-11 h-11 rounded-full bg-brand border-2 border-brand flex items-center justify-center text-[18px] relative"
             style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              background: 'var(--brand)',
-              border: '2px solid var(--brand)',
               color: '#0A0A0A',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '18px',
               boxShadow: '0 0 24px rgba(201,169,110,0.4)',
-              position: 'relative',
             }}
           >
             <span
-              style={{
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                borderRadius: '50%',
-                border: '2px solid var(--brand)',
-                animation: 'pulse-ring 2.5s ease-out infinite',
-                display: 'block',
-              }}
+              className="absolute w-full h-full rounded-full border-2 border-brand block"
+              style={{ animation: 'pulse-ring 2.5s ease-out infinite' }}
             />
             ⌂
           </div>
           <div
-            style={{
-              position: 'absolute',
-              top: '110%',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              background: 'var(--bg-glass)',
-              border: '1px solid var(--border-default)',
-              backdropFilter: 'blur(8px)',
-              borderRadius: '6px',
-              padding: '6px 10px',
-              whiteSpace: 'nowrap',
-              fontSize: '11px',
-              fontWeight: '600',
-              letterSpacing: '0.05em',
-              color: 'var(--text-primary)',
-              marginTop: '4px',
-            }}
+            className="absolute top-[110%] left-1/2 -translate-x-1/2 bg-[rgba(17,17,17,0.80)] border border-border-default backdrop-blur-[8px] rounded-[6px] px-[10px] py-[6px] whitespace-nowrap text-[11px] font-semibold tracking-[0.05em] text-text-primary mt-1"
           >
             AURA Residences
           </div>
@@ -122,27 +79,17 @@ export default function MapSection() {
           return (
             <div
               key={pin.label}
-              style={{
-                position: 'absolute',
-                top: pin.top,
-                left: pin.left,
-                transform: 'translate(-50%, -50%)',
-                cursor: 'pointer',
-              }}
+              className="absolute cursor-pointer -translate-x-1/2 -translate-y-1/2"
+              style={{ top: pin.top, left: pin.left }}
             >
               <div
+                className="rounded-full flex items-center justify-center text-[14px] transition-transform duration-200"
                 style={{
                   width: style.size,
                   height: style.size,
-                  borderRadius: '50%',
                   background: style.bg,
                   border: `2px solid ${style.border}`,
                   color: style.color,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '14px',
-                  transition: 'transform 0.2s',
                 }}
               >
                 {pin.icon}
@@ -153,66 +100,25 @@ export default function MapSection() {
 
         {/* Overlay panel */}
         <div
-          style={{
-            position: 'absolute',
-            top: '40px',
-            left: '40px',
-            zIndex: '5',
-            background: 'var(--bg-glass)',
-            border: '1px solid var(--border-default)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            borderRadius: 'var(--radius-card)',
-            padding: '24px 28px',
-          }}
+          className="absolute top-4 left-4 right-4 sm:top-10 sm:left-10 sm:right-auto z-[5] bg-[rgba(17,17,17,0.80)] border border-border-default backdrop-blur-[16px] rounded-card p-4 sm:p-[24px_28px]"
         >
-          <h3
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '22px',
-              fontWeight: '400',
-              color: 'var(--text-primary)',
-              marginBottom: '16px',
-            }}
-          >
+          <h3 className="font-display text-[22px] font-normal text-text-primary mb-4">
             Prime Location
           </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div className="flex flex-col gap-[10px]">
             {overlayItems.map(item => (
               <div
                 key={item.label}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  fontSize: '13px',
-                  color: 'var(--text-secondary)',
-                }}
+                className="flex items-center gap-3 text-[13px] text-text-secondary"
               >
                 <div
-                  style={{
-                    width: '28px',
-                    height: '28px',
-                    borderRadius: '6px',
-                    background: item.bgColor,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '14px',
-                    flexShrink: '0',
-                  }}
+                  className="w-7 h-7 rounded-[6px] flex items-center justify-center text-[14px] shrink-0"
+                  style={{ background: item.bgColor }}
                 >
                   {item.icon}
                 </div>
                 <span>{item.label}</span>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '12px',
-                    color: 'var(--brand)',
-                    marginLeft: 'auto',
-                  }}
-                >
+                <span className="font-mono text-[12px] text-brand ml-auto">
                   {item.distance}
                 </span>
               </div>

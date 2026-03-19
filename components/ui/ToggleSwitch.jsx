@@ -15,46 +15,17 @@ export default function ToggleSwitch({ label, defaultActive = false, onChange })
   }
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '12px 0',
-        borderBottom: '1px solid var(--border-subtle)',
-      }}
-    >
-      <span style={{ fontSize: '14px', color: 'var(--text-primary)' }}>{label}</span>
+    <div className="flex items-center justify-between py-3 border-b border-border-subtle">
+      <span className="text-[14px] text-text-primary">{label}</span>
       <button
         role="switch"
         aria-checked={active}
         onClick={handleToggle}
-        style={{
-          width: '44px',
-          height: '24px',
-          borderRadius: '12px',
-          background: active ? 'var(--brand)' : 'var(--border-strong)',
-          position: 'relative',
-          cursor: 'pointer',
-          transition: 'background 0.2s',
-          flexShrink: '0',
-          border: 'none',
-          outline: 'none',
-        }}
+        className={`w-11 h-6 rounded-[12px] relative cursor-pointer transition-colors duration-200 shrink-0 border-none outline-none ${active ? 'bg-brand' : 'bg-border-strong'}`}
       >
         <span
-          style={{
-            position: 'absolute',
-            top: '3px',
-            left: '3px',
-            width: '18px',
-            height: '18px',
-            borderRadius: '50%',
-            background: '#fff',
-            transition: 'transform 0.2s',
-            transform: active ? 'translateX(20px)' : 'none',
-            display: 'block',
-          }}
+          className="absolute top-[3px] left-[3px] w-[18px] h-[18px] rounded-full bg-white transition-transform duration-200 block"
+          style={{ transform: active ? 'translateX(20px)' : 'none' }}
         />
       </button>
     </div>

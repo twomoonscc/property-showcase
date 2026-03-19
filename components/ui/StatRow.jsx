@@ -4,45 +4,18 @@
 export default function StatRow({ stats }) {
   return (
     <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: `repeat(${stats.length}, 1fr)`,
-        gap: '2px',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-card)',
-        overflow: 'hidden',
-      }}
+      className="grid gap-0.5 border border-border-subtle rounded-card overflow-hidden"
+      style={{ gridTemplateColumns: `repeat(${stats.length}, 1fr)` }}
     >
       {stats.map((stat) => (
         <div
           key={stat.label}
-          style={{
-            background: 'var(--bg-elevated)',
-            padding: '36px 32px',
-            textAlign: 'center',
-          }}
+          className="bg-bg-elevated py-9 px-8 text-center"
         >
-          <span
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '40px',
-              fontWeight: '400',
-              color: 'var(--brand)',
-              display: 'block',
-              marginBottom: '8px',
-            }}
-          >
+          <span className="font-mono text-[40px] font-normal text-brand block mb-2">
             {stat.number}
           </span>
-          <span
-            style={{
-              fontSize: '12px',
-              fontWeight: '600',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              color: 'var(--text-secondary)',
-            }}
-          >
+          <span className="text-[12px] font-semibold tracking-[0.08em] uppercase text-text-secondary">
             {stat.label}
           </span>
         </div>
