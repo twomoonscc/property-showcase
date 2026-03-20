@@ -9,11 +9,11 @@ export default function Footer() {
   return (
     <footer className="bg-bg-base border-t border-border-subtle py-12">
       <div className="container">
-        <div className="flex justify-between items-center flex-wrap gap-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6">
           <div className="font-display text-[20px] font-medium tracking-[0.15em] text-text-primary">
             AURA
           </div>
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-4 sm:gap-8">
             {footerLinks.map((link) => (
               <a
                 key={link.label}

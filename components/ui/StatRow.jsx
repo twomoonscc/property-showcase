@@ -5,7 +5,7 @@ export default function StatRow({ stats }) {
   return (
     <div
       className="grid gap-0.5 border border-border-subtle rounded-card overflow-hidden"
-      style={{ gridTemplateColumns: `repeat(${stats.length}, 1fr)` }}
+      style={{ gridTemplateColumns: `repeat(auto-fit, minmax(120px, 1fr))` }}
     >
       {stats.map((stat) => (
         <div

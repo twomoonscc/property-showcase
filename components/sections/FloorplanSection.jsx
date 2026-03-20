@@ -59,7 +59,7 @@ export default function FloorplanSection() {
           </div>
         </RevealWrapper>
 
-        <div className="grid gap-8 items-start mt-16" style={{ gridTemplateColumns: '1fr 320px' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 items-start mt-16">
           {/* Grid canvas */}
           <RevealWrapper>
             <div className="bg-bg-surface rounded-card border border-border-subtle p-8 min-h-[500px] relative">

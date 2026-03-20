@@ -22,7 +22,7 @@ export default function TeamSection() {
           </RevealWrapper>
         </div>
 
-        <div className="grid grid-cols-3 gap-6 mt-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
           {agents.map((agent, idx) => (
             <RevealWrapper key={agent.name} delay={idx}>
               <div className="bg-bg-surface rounded-card border border-border-subtle p-8 text-center transition-[border-color,transform] duration-200">

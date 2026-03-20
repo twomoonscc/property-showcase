@@ -29,7 +29,7 @@ export default function NarrativeSection() {
         </div>
 
         <RevealWrapper delay={2}>
-          <p className="text-[18px] leading-[1.8] text-text-secondary mb-8">
+          <p className="text-[16px] sm:text-[18px] leading-[1.8] text-text-secondary mb-8">
             AURA Residences is not simply a building. It is a considered response to the city around it — a vertical neighbourhood conceived to elevate daily life through proportion, materiality, and an unwavering commitment to craft. Each residence has been designed from the inside out, prioritising the lived experience above all else.
           </p>
         </RevealWrapper>
@@ -44,7 +44,7 @@ export default function NarrativeSection() {
         </RevealWrapper>
 
         <RevealWrapper>
-          <p className="text-[18px] leading-[1.8] text-text-secondary mb-8">
+          <p className="text-[16px] sm:text-[18px] leading-[1.8] text-text-secondary mb-8">
             Conceived by award-winning architectural studio Meridian, the building's façade responds to the path of the sun — angled louvres of hand-finished aluminium diffuse light through the day, creating shifting patterns across the interior floors. The lobby is a double-height atrium in honed Calacatta marble and smoked oak, attended by a dedicated concierge around the clock.
           </p>
         </RevealWrapper>

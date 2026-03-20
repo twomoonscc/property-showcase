@@ -68,16 +68,16 @@ export default function VideoSection() {
       )}
 
       {/* Bottom meta */}
-      <div className="absolute bottom-10 left-0 right-0 z-[4] px-16 flex justify-between items-end">
+      <div className="absolute bottom-6 sm:bottom-10 left-0 right-0 z-[4] px-4 sm:px-16 flex justify-between items-end gap-4">
         <div>
           <span className="text-[12px] font-semibold tracking-[0.1em] uppercase text-brand">
             Official Film
           </span>
-          <h3 className="font-display text-[28px] font-normal text-text-primary mt-[6px]">
+          <h3 className="font-display text-[20px] sm:text-[28px] font-normal text-text-primary mt-[6px]">
             A Life Above the City
           </h3>
         </div>
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-2 sm:gap-3 items-center shrink-0">
           <button
             aria-label="Mute"
             className="w-11 h-11 rounded-full bg-[rgba(255,255,255,0.08)] border border-border-strong flex items-center justify-center text-text-primary cursor-pointer"

@@ -28,7 +28,8 @@ export default function ConstructionProgressSection() {
         </div>
 
         <RevealWrapper>
-          <div className="relative mt-16 pb-8">
+          <div className="overflow-x-auto">
+          <div className="relative mt-16 pb-8 min-w-[480px]">
             {/* Progress track */}
             <div className="relative h-0.5 bg-border-default">
               <div
@@ -86,6 +87,7 @@ export default function ConstructionProgressSection() {
                 )
               })}
             </div>
+          </div>
           </div>
         </RevealWrapper>
       </div>

@@ -60,14 +60,14 @@ export default function HeroSection() {
         </h1>
 
         <p
-          className="text-[18px] font-normal leading-[1.7] text-text-secondary max-w-[560px] mx-auto mb-12"
+          className="text-[16px] sm:text-[18px] font-normal leading-[1.7] text-text-secondary max-w-[560px] mx-auto mb-12"
           style={{ animation: 'fadeUp 1s ease 0.6s both' }}
         >
           Forty-two singular residences poised above the city. Where architectural precision meets the art of living extraordinarily well.
         </p>
 
         <div
-          className="flex gap-4 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           style={{ animation: 'fadeUp 1s ease 0.8s both' }}
         >
           <a

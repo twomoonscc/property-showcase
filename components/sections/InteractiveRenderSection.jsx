@@ -31,11 +31,11 @@ export default function InteractiveRenderSection() {
   return (
     <section
       id="render-section"
-      className="h-screen bg-bg-base relative overflow-hidden flex items-stretch"
+      className="min-h-screen bg-bg-base relative overflow-hidden flex flex-col lg:flex-row items-stretch"
     >
       {/* Render canvas */}
       <div
-        className="flex-1 relative flex items-center justify-center"
+        className="flex-1 relative flex items-center justify-center min-h-[60vh] lg:min-h-0"
         style={{ background: 'radial-gradient(ellipse 70% 80% at 50% 60%, rgba(20,30,50,0.8) 0%, #050810 100%)' }}
       >
         {/* Wireframe building */}
@@ -92,7 +92,7 @@ export default function InteractiveRenderSection() {
       </div>
 
       {/* Controls panel */}
-      <div className="w-[280px] bg-bg-elevated border-l border-border-subtle p-[40px_32px] flex flex-col gap-9 overflow-y-auto">
+      <div className="w-full lg:w-[280px] bg-bg-elevated border-t lg:border-t-0 lg:border-l border-border-subtle p-6 lg:p-[40px_32px] flex flex-col gap-6 lg:gap-9 overflow-y-auto">
         <div>
           <p className="eyebrow mb-3">Interactive Model</p>
           <h3 className="font-display text-[22px] font-normal text-text-primary">

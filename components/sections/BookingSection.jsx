@@ -58,7 +58,7 @@ export default function BookingSection() {
           </RevealWrapper>
         </div>
 
-        <div className="grid gap-16 items-start mt-16" style={{ gridTemplateColumns: '1fr 1fr' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start mt-16">
           {/* Left: calendar + time slots */}
           <RevealWrapper>
             <CalendarWidget
@@ -85,7 +85,7 @@ export default function BookingSection() {
               onSubmit={e => e.preventDefault()}
               className="flex flex-col gap-5 pt-2"
             >
-              <div className="grid gap-4" style={{ gridTemplateColumns: '1fr 1fr' }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
                   <label className={labelClass}>First Name</label>
                   <input type="text" placeholder="James" className={inputClass} />

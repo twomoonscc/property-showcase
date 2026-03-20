@@ -39,7 +39,7 @@ export default function ContactSection() {
       className="py-24 bg-bg-base"
     >
       <div className="container">
-        <div className="grid gap-24 mt-16" style={{ gridTemplateColumns: '1fr 1fr' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 mt-16">
           {/* Left: info + channels */}
           <RevealWrapper>
             <p className="eyebrow">Get in Touch</p>
@@ -90,7 +90,7 @@ export default function ContactSection() {
             >
               <p className="eyebrow mb-4">Send a Message</p>
 
-              <div className="grid gap-4" style={{ gridTemplateColumns: '1fr 1fr' }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
                   <label className={labelClass}>First Name</label>
                   <input type="text" placeholder="Your name" className={inputClass} />

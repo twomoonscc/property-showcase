@@ -47,14 +47,14 @@ export default function GallerySection() {
 
         <RevealWrapper>
           <div
-            className="grid gap-2 mt-16"
+            className="gallery-grid grid gap-2 mt-16"
             style={{ gridTemplateColumns: 'repeat(12, 1fr)' }}
           >
             {galleryItems.map((item, idx) => (
               <div
                 key={item.label}
                 onClick={() => setLightboxIndex(idx)}
-                className="overflow-hidden rounded-[4px] relative cursor-pointer bg-bg-elevated"
+                className="gallery-item overflow-hidden rounded-[4px] relative cursor-pointer bg-bg-elevated"
                 style={{
                   gridColumn: item.col,
                   gridRow: item.row,
