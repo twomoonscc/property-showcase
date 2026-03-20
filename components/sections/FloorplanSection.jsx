@@ -88,7 +88,7 @@ export default function FloorplanSection() {
           </RevealWrapper>
 
           {/* Detail panel */}
-          <RevealWrapper delay={2}>
+          <RevealWrapper delay={2} className="sticky top-[88px]">
             <div className="bg-bg-surface rounded-card border border-border-subtle p-8">
               <p className="eyebrow mb-2">Selected Unit</p>
               <h3 className="font-display text-[24px] font-normal mb-1">
